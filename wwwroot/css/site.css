@@ -1,0 +1,214 @@
+/* Font Family */
+/* Inter Tight */
+/* Merriweather */
+@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
+/**/
+/* Bootstrap Icons */
+@import url("https://cdn.jsdelivr.net/npm/@flaticon/flaticon-uicons/css/all/all.css");
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
+/**/
+:root {
+    --primary-color: #274C77;
+    --secondary-color: #6096BA;
+    --uranian-blue: #A3CEF1;
+    --battle-ship-grey: #8B8C89;
+    --anti-flash-white: #E7ECEF;
+    --primary-font: "Inter Tight", sans-serif;
+    --secondary-font: "Merriweather", serif;
+    --white-color: #f4f4f4;
+    --black-color: #222;
+    --half-white: #ffffff61;
+    --half-black: #2121218c;
+    --half-uranian: #a3cef172;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: var(--primary-font);
+    box-sizing: border-box;
+}
+
+.glass-bg {
+    background-color: #ffffff26;
+    backdrop-filter: blur(50px);
+    -webkit-backdrop-filter: blur(50px);
+}
+
+.fw-semibold {
+    font-weight: 600;
+}
+
+.rounded-4 {
+    border-radius: 0.40rem;
+}
+.rounded-5 {
+    border-radius: 1rem;
+}
+
+.min-vh-100 {
+    min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--secondary-font);
+}
+
+.font-heading {
+    font-family: var(--secondary-font);
+}
+
+.font-body {
+    font-family: var(--primary-font);
+}
+
+.text-white {
+    color: var(--white-color);
+}
+
+.primary-color {
+    color: var(--primary-color);
+}
+
+.primary-bg {
+    background-color: var(--primary-color);
+}
+
+.secondary-color {
+    color: var(--secondary-color);
+}
+
+.secondary-bg {
+    background-color: var(--secondary-color);
+}
+
+.uranian-color {
+    color: var(--uranian-blue);
+}
+
+.uranian-bg {
+    background-color: var(--uranian-blue);
+}
+.half-bg-uranian {
+    background-color: var(--half-uranian);
+}
+
+.primary-btn {
+    all: unset;
+    color: var(--white-color);
+    background-color: var(--primary-color);
+    padding: 10px 2.5rem;
+    border-radius: 50vw;
+    border: 1px solid transparent;
+    transition: all 0.4s ease;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+    .primary-btn:hover {
+        color: var(--black-color);
+        background-color: var(--uranian-blue);
+    }
+
+    .primary-btn:focus,
+    .primary-btn:active {
+        background-color: transparent;
+        color: var(--white-color);
+        border: 1px solid var(--white-color);
+    }
+
+.primary-icon-btn {
+    all: unset;
+    color: var(--white-color);
+    background-color: var(--primary-color);
+    border-radius: 50vw;
+    border: 1px solid transparent;
+    transition: all 0.4s ease;
+    text-decoration: none;
+    padding: 5px;
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.primary-icon-btn i{
+    padding:0;
+    margin:0;
+}
+
+
+    .primary-icon-btn:hover {
+        color: var(--black-color);
+        background-color: var(--uranian-blue);
+    }
+
+.secondary-btn {
+    all: unset;
+    color: var(--black-color);
+    background-color: var(--uranian-blue);
+    padding: 10px 2.5rem;
+    border-radius: 50vw;
+    border: 1px solid transparent;
+    transition: all 0.4s ease;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+    .secondary-btn:hover {
+        color: var(--white-color);
+        background-color: var(--primary-color);
+    }
+
+    .secondary-btn:focus,
+    .secondary-btn:active {
+        background-color: transparent;
+        color: var(--white-color);
+        border: 1px solid var(--white-color);
+    }
+/* Navigation Bar */
+.nav-logo {
+    width: 70px !important;
+    object-fit: cover;
+    object-position: center;
+}
+
+
+/* Index Page Style */
+
+.hero-section {
+    background: linear-gradient(0deg, var(--half-black), var(--half-black)), url('https://images.unsplash.com/photo-1568792923760-d70635a89fdc?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    width: 100%;
+}
+
+
+/**/
+/* Login Page Style */
+
+.input-custom {
+    all: unset;
+    border: 2px solid var(--half-black);
+    border-radius:5px;
+    padding:10px 17px;
+    color:var(--black-color);
+    background-color:var(--white-color);
+    box-shadow: 0 2px 1px var(--half-black);
+    transition: all 0.3s ease;
+    outline: 2px solid transparent;
+}
+
+    .input-custom:focus,
+    .input-custom:active {
+        outline: 2px solid var(--primary-color);
+        border: 2px solid var(--primary-color);
+    }

@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <script src="https://cdn.jsdelivr.net/npm/i8-icon@0.9.4/index.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/i8-icon@0.9.4/i8-icon.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        @if (!User.IsInRole("Admin"))
+        {
+            <!-- Render the navbar only if the user is not an admin -->
+            <nav class="navbar navbar-expand-lg fixed-top">
+                <div class="container">
+                    <a class="navbar-brand text-white fw-light fs-3" asp-action="Index" asp-controller="Home">
+                        <img class="nav-logo" width="70px" height="70px" src="~/Images/main-logo.png" />
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+                        <i class="bi bi-list fs-1 text-white"></i>
+                    </button>
+                    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                        <div class="offcanvas-header">
+                            <h5 class="offcanvas-title" id="offcanvasNavbarLabel fw-bold">PORTALX ADMINISTRATION</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                        </div>
+                        <div class="offcanvas-body">
+                            <ul class="navbar-nav justify-content-end flex-grow-1 gap-3 pe-3">
+                                @if (!User.Identity.IsAuthenticated)
+                                {
+                                    <li class="nav-item">
+                                        <a asp-action="Index" class="text-decoration-none" asp-controller="Signup">
+                                            <button class="primary-btn">
+                                                Sign Up
+                                            </button>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="text-decoration-none" asp-action="Index" asp-controller="Login">
+                                            <button class="secondary-btn">
+                                                Login
+                                            </button>
+                                        </a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li class="nav-item">
+                                        <a class="text-decoration-none" asp-action="Logout" asp-controller="Login">
+                                            <button class="secondary-btn">
+                                                <i class="bi bi-door-open-fill"></i>
+                                            </button>
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        }
+    </header>
+
+    <div>
+        <main role="main">
+            @RenderBody()
+        </main>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+</body>
+</html>

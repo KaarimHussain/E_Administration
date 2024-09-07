@@ -1,0 +1,54 @@
+﻿@model IEnumerable<E_Administration.Models.Pc>
+<div class="container-fluid position-relative">
+    <div class="row">
+        <!-- Admin Offcanvas and Side navigation-bar are here -->
+        @await Html.PartialAsync("_AdminSidebarPartial")
+        <div class="col-lg-9 col-md-12 col-12">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="p-4 d-flex justify-content-between align-items-center flex-lg-row flex-md-column flex-column gap-2">
+                            <div>
+                                <h3 class="font-body">Welcome, Admin! What's Cooking🤔</h3>
+                                <p class="text-black-50 fw-normal">Here you can manipulate almost anything</p>
+                            </div>
+                            <div class="d-flex gap-2">
+                                <a asp-action="Logout" asp-controller="Login" class="primary-icon-btn">
+                                    <i class="bi bi-door-open-fill"></i>
+                                </a>
+                                <a asp-action="Logout" asp-controller="Login" class="primary-icon-btn">
+                                    <i class="bi bi-bell-fill"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                   <!-- Users View -->
+                    <div class="col-12">
+                        <table class="table table-responsive">
+                            <thead>
+                                <tr>
+                                    <th>PC Name</th>
+                                    <th>Lab Name</th>
+                                    <th>Purchased At</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var pc in Model)
+                                {
+                                    <tr>
+                                        <td>@pc.PcName</td>
+                                        <td>@pc.Lab.LabName</td>
+                                        <td>@pc.PurchasedAt</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                   <!--  -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
