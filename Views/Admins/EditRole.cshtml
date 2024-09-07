@@ -1,0 +1,22 @@
+﻿@model E_Administration.Models.Role
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-12 my-3" >
+            <a class="text-black text-decoration-none" asp-action="Roles">Go Back </a>
+        </div>
+        <div class="col-12 d-flex justify-content-center align-items-center">
+            <div class="row">
+                <div class="col-md-12 d-flex flex-column gap-1">
+                    <h1 class="font-body fw-bold display-3">Edit Role</h1>
+                    <p>Make sure to edit Role easier for user to understand</p>
+                    <form method="post" asp-action="changeRoleName" class="d-flex flex-column gap-3">
+                        <input class="input-custom" placeholder="RoleName" value="@Model.RoleName" />
+                        <input type="hidden" name="roleID" value="@Model.RoleId" />
+                        <button type="submit" class="primary-btn text-center">Save</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

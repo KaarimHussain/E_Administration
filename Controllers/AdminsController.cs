@@ -97,5 +97,58 @@ namespace E_Administration.Controllers
         {
             return View();
         }
+
+        //GET
+        public IActionResult EditUser(int userId)
+        {
+            var userID = _context.Users.FirstOrDefault(id => id.Id == userId);
+            return View(userID);
+        }
+
+        //GET
+        public IActionResult Roles()
+        {
+            var roles = _context.Roles.ToList();
+            return View(roles);
+        }
+        //POST
+        [HttpPost]
+        public IActionResult EditRole(int roleID)
+        {
+            var role = _context.Roles.FirstOrDefault(id => id.RoleId == roleID);
+            if (role != null)
+            {
+                return View(role); // Pass a single role object to the view
+            }
+            else
+            {
+                return RedirectToAction("Roles");
+            }
+        }
+        [HttpPost]
+        [HttpPost]
+        public IActionResult changeRoleName(string roleName, int roleId)
+        {
+            var role = _context.Roles.FirstOrDefault(id => id.RoleId == roleId);
+            if (role != null)
+            {
+                role.RoleName = roleName;  // Assign the new role name
+                _context.Roles.Update(role);
+                _context.SaveChanges();
+            }
+            return RedirectToAction("Roles"); // Redirect after saving changes
+        }
+
+        [HttpPost]
+        public IActionResult deleteRole(int roleId) 
+        {
+            var role = _context.Roles.FirstOrDefault(id => id.RoleId == roleId);
+            if(role != null)
+            {
+                _context.Roles.Remove(role);
+                _context.SaveChanges();
+            }
+            return RedirectToAction("Roles");
+        }
     }
 }

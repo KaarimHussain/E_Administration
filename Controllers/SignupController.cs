@@ -1,5 +1,7 @@
 ﻿using E_Administration.Models;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace E_Administration.Controllers
 {
@@ -32,6 +34,19 @@ namespace E_Administration.Controllers
                 user.Password = lg.Password;
                 _context.Users.Add(user);
                 _context.SaveChanges();
+
+                var claims = new List<Claim>
+                    {
+                        new Claim(ClaimTypes.Name, user.Username),
+                        new Claim(ClaimTypes.Email, user.Email),
+                        new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                        new Claim(ClaimTypes.Role, "User"),
+                    };
+
+                var identity = new ClaimsIdentity(claims, "Login");
+                var principal = new ClaimsPrincipal(identity);
+                HttpContext.SignInAsync(principal);
+
                 return RedirectToAction("Index", "Students");
             }
             else
