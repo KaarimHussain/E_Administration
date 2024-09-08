@@ -9,10 +9,18 @@ namespace E_Administration.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-            var username = User.Identity.Name;
-            var usernameFromClaim = User.FindFirst(ClaimTypes.Name)?.Value;
-            ViewBag.Username = usernameFromClaim;
-            return View();
+                if (User.IsInRole("Admin"))
+                {
+                    return RedirectToAction("Index", "Admins");
+                }
+                else if (User.IsInRole("User"))
+                {
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
             }
             else
             {

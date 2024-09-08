@@ -40,11 +40,3 @@
 </div>
 <!-- Adding Script Section -->
 <script src="~/js/login.js"></script>
-<script>
-    document.addEventListener("DOMContentLoaded", function(){
-        var alertMessage = @TempData["LoginError"];
-        if (alertMessage !== null) {
-            alert(alertMessage);
-        }
-    })
-</script>

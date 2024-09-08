@@ -23,7 +23,7 @@ namespace E_Administration.Controllers
 
             ViewData["Students"] = _context.Users.Count();
             ViewData["Faculty"] = _context.Users.Count(u => u.RoleId == 4);
-            ViewData["HOD"] = _context.Users.Count(u => u.RoleId == 2);
+            ViewData["HOD"] = _context.Users.Count(u => u.RoleId == 6);
             ViewData["Labs"] = _context.Labs.Count();
             ViewData["PC"] = _context.Pcs.Count();
             ViewData["Software"] = _context.Softwares.Count();

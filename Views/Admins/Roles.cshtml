@@ -43,13 +43,13 @@
                                         <div class="d-flex flex-md-column flex-row gap-2">
                                             <form asp-action="deleteRole" method="post">
                                                 <input type="hidden" name="roleID" value="@roleData.RoleId" />
-                                                <button class="badge text-white bg-danger cursor-pointer">
+                                                <button type="submit" class="badge text-white bg-danger rounded-circle cursor-pointer">
                                                     <i class="bi bi-x-lg"></i>
                                                 </button>
                                             </form>
                                             <form asp-action="EditRole" method="post">
                                                 <input type="hidden" name="roleID" value="@roleData.RoleId" />
-                                                <button type="submit" class="badge text-dark bg-white cursor-pointer">
+                                                <button type="submit" class="badge text-dark rounded-circle bg-white cursor-pointer">
                                                     <i class="bi bi-pencil-square"></i>
                                                 </button>
                                             </form>
