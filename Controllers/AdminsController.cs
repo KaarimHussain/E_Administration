@@ -95,7 +95,7 @@ namespace E_Administration.Controllers
         [HttpPost]
         public async Task<IActionResult> AddFloor(Floor floor)
         {
-            
+
             if (!ModelState.IsValid)
             {
                 bool floorExists = await _context.Floors
@@ -114,7 +114,7 @@ namespace E_Administration.Controllers
                     TempData["FloorError"] = $"{floor.FloorName} Already Exist in the Database";
                     return View(floor);
                 }
-                
+
             }
 
             // If model validation fails, re-display the form with validation errors
@@ -173,14 +173,14 @@ namespace E_Administration.Controllers
 
 
         [HttpPost]
-        public IActionResult UpdateRoleToHOD(int userId, int roleId) 
+        public IActionResult UpdateRoleToHOD(int userId, int roleId)
         {
-            if (!User.Identity.IsAuthenticated ||  !User.IsInRole("Admin"))
+            if (!User.Identity.IsAuthenticated || !User.IsInRole("Admin"))
             {
-                return RedirectToAction("Index","Home");
+                return RedirectToAction("Index", "Home");
             }
             var user = _context.Users.FirstOrDefault(u => u.Id == userId);
-            var roleExist  = _context.Roles.FirstOrDefault(u =>u.RoleId == roleId);
+            var roleExist = _context.Roles.FirstOrDefault(u => u.RoleId == roleId);
             if (user != null && roleExist != null)
             {
                 user.RoleId = roleId;
@@ -193,14 +193,15 @@ namespace E_Administration.Controllers
             return RedirectToAction("Users");
         }
         [HttpPost]
-        public IActionResult DeleteUser(int userId) 
+        public IActionResult DeleteUser(int userId)
         {
             var user = _context.Users.FirstOrDefault(u => u.Id == userId);
             if (user != null)
             {
                 _context.Remove(user);
                 _context.SaveChanges();
-            }else
+            }
+            else
             {
                 TempData["AdminError"] = "Couldn't find the User!";
             }
@@ -228,9 +229,9 @@ namespace E_Administration.Controllers
         //GET
         public IActionResult AddRoles()
         {
-            if(!User.Identity.IsAuthenticated || !User.IsInRole("Admin"))
+            if (!User.Identity.IsAuthenticated || !User.IsInRole("Admin"))
             {
-                return RedirectToAction("Index","Home");
+                return RedirectToAction("Index", "Home");
             }
             return View();
         }
@@ -286,10 +287,10 @@ namespace E_Administration.Controllers
         }
 
         [HttpPost]
-        public IActionResult deleteRole(int roleId) 
+        public IActionResult deleteRole(int roleId)
         {
             var role = _context.Roles.FirstOrDefault(id => id.RoleId == roleId);
-            if(role != null)
+            if (role != null)
             {
                 _context.Roles.Remove(role);
                 _context.SaveChanges();
@@ -300,7 +301,7 @@ namespace E_Administration.Controllers
         //GET
         public async Task<IActionResult> ViewComplaints(int id)
         {
-            if(!User.Identity.IsAuthenticated || !User.IsInRole("Admin"))
+            if (!User.Identity.IsAuthenticated || !User.IsInRole("Admin"))
             {
                 return RedirectToAction("Index", "Home");
             }
@@ -329,10 +330,15 @@ namespace E_Administration.Controllers
 
         //GET AJAX PC COUNT
         [HttpGet]
-        public IActionResult GetPcCount(int labId) 
+        public IActionResult GetPcCount(int labId)
         {
             var pc = _context.Pcs.Where(p => p.LabId == labId);
             return Json(pc);
         }
+
+
+
+
+
     }
 }
