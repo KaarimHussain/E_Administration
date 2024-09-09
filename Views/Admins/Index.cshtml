@@ -33,20 +33,23 @@
                         {
                             @foreach (var ist in Model)
                             {
-                                <div class="col-12 mb-3 border border-3 rounded-4 p-3 d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <h3 class="fw-bold font-body text-black">
-                                            @ist.InstituteName
-                                        </h3>
-                                        <small class="text-black-50 col-12 text-truncate">@ist.InstituteDescription</small>
-                                        <br />
-                                        <small>
-                                            <i class="bi bi-geo-alt-fill"></i><i class="text-black-50 font-heading">@ist.InstituteAddress | @ist.CreatedAt.ToString("MMMM dd, yyyy HH:mm:ss")</i>
-                                        </small>
-                                    </div>
-                                    <div>
-                                        <a asp-action="DetailInstitutes" asp-route-id="@ist.InstituteId" class="primary-btn">View Details
-                                        </a>
+                                <div class="col-12 mb-3 border border-3 rounded-4 p-3">
+                                    <div class="row align-items-center">
+                                        <div class="col-lg-9 col-md-8 col-sm-12 col-12 mb-3">
+                                            <h3 class="fw-bold font-body text-black">
+                                                @ist.InstituteName
+                                            </h3>
+                                            <small class="text-black-50 col-12">@ist.InstituteDescription</small>
+                                            <br />
+                                            <small>
+                                                <i class="bi bi-geo-alt-fill"></i><i class="text-black-50 font-heading">@ist.InstituteAddress | @ist.CreatedAt.ToString("MMMM dd, yyyy HH:mm:ss")</i>
+                                            </small>
+                                        </div>
+                                        <div class="col-lg-3 col-md-4 col-sm-12 col-12">
+                                            <a asp-action="DetailInstitutes" asp-route-id="@ist.InstituteId" class="primary-btn">
+                                                Manege This Institute
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             }
