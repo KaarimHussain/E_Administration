@@ -25,8 +25,22 @@
                     </div>
                     <hr />
                     <a asp-action="Index" class="text-decoration-none text-black-50"><i class="bi bi-arrow-left"></i> Back to List</a>
-                    <div class="col-12 my-3" >
+                    <div class="col-12 mb-3 mt-4" >
                         <a asp-action="AddFloor" class="primary-btn">Add Floors</a>
+                    </div>
+                    <div class="col-12 my-4" >
+                        @if(TempData["FloorSuccess"] != null)
+                        {
+                            <div class="alert alert-success" role="alert">
+                                @TempData["FloorSuccess"]
+                            </div>
+                        }
+                        @if (TempData["FloorError"] != null)
+                        {
+                            <div class="alert alert-danger" role="alert">
+                                @TempData["FloorError"]
+                            </div>
+                        }
                     </div>
                     <!-- Institute Details View -->
                     <div class="container my-3">
@@ -37,6 +51,8 @@
                                     <th scope="col">Institute Name</th>
                                     <th scope="col">Floor Name</th>
                                     <th scope="col">Created At</th>
+                                    <th scope="col">Action</th>
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -47,6 +63,12 @@
                                         <td>@floor.Institute?.InstituteName</td>
                                         <td>@floor.FloorName</td>
                                         <td>@floor.CreatedAt</td>
+                                        <td>
+                                            <form asp-action="DeleteFloor" method="post">
+                                                <input type="hidden" name="floorId" value="@floor.FloorId" />
+                                                <button type="submit" class="primary-icon-btn"><i class="bi bi-trash-fill"></i></button>
+                                            </form>
+                                        </td>
                                     </tr>
                                 }
                             </tbody>

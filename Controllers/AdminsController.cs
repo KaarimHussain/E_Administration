@@ -95,21 +95,54 @@ namespace E_Administration.Controllers
         [HttpPost]
         public async Task<IActionResult> AddFloor(Floor floor)
         {
+            
             if (!ModelState.IsValid)
             {
-                floor.CreatedAt = DateTime.Now;
-                _context.Floors.Add(floor);
-                await _context.SaveChangesAsync();
-                ViewData["InstituteId"] = new SelectList(_context.Institutes, "InstituteId", "InstituteName", floor.InstituteId);
-                TempData["FloorSuccess"] = "The Floor was added Successfully";
-                return View("AddFloor"); // Redirect to a relevant page after successful addition
+                bool floorExists = await _context.Floors
+            .AnyAsync(f => f.FloorName == floor.FloorName && f.InstituteId == floor.InstituteId);
+                if (!floorExists)
+                {
+                    floor.CreatedAt = DateTime.Now;
+                    _context.Floors.Add(floor);
+                    await _context.SaveChangesAsync();
+                    ViewData["InstituteId"] = new SelectList(_context.Institutes, "InstituteId", "InstituteName", floor.InstituteId);
+                    TempData["FloorSuccess"] = "The Floor was added Successfully";
+                    return View(); // Redirect to a relevant page after successful addition
+                }
+                else
+                {
+                    TempData["FloorError"] = $"{floor.FloorName} Already Exist in the Database";
+                    return View(floor);
+                }
+                
             }
 
             // If model validation fails, re-display the form with validation errors
             ViewData["InstituteId"] = new SelectList(_context.Institutes, "InstituteId", "InstituteName", floor.InstituteId);
+            TempData["FloorError"] = "Provided Credentials are not Valid! Please try again later";
             return View(floor);
         }
 
+        // POST
+        [HttpPost]
+        public async Task<IActionResult> DeleteFloor(int floorId)
+        {
+            // Find the floor by its ID
+            var floor = await _context.Floors.FindAsync(floorId);
+
+            if (floor != null)
+            {
+                _context.Floors.Remove(floor);
+                await _context.SaveChangesAsync();
+
+                TempData["FloorSuccess"] = "The floor was successfully deleted.";
+            }
+            else
+            {
+                TempData["FloorError"] = "The floor could not be found.";
+            }
+            return RedirectToAction("ViewFloor");
+        }
 
         // GET
         public IActionResult Users()
@@ -262,6 +295,44 @@ namespace E_Administration.Controllers
                 _context.SaveChanges();
             }
             return RedirectToAction("Roles");
+        }
+
+        //GET
+        public async Task<IActionResult> ViewComplaints(int id)
+        {
+            if(!User.Identity.IsAuthenticated || !User.IsInRole("Admin"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            var complaints = _context.Complaints.ToList();
+            return View(complaints);
+        }
+
+        //GET
+        public IActionResult ViewLabs(int id)
+        {
+            if (!User.Identity.IsAuthenticated || !User.IsInRole("Admin"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            ViewData["LabsId"] = new SelectList(_context.Floors.Where(fl => fl.InstituteId == id), "FloorId", "FloorName");
+            return View();
+        }
+        //GET AJAX LABS
+        [HttpGet]
+        public IActionResult GetLabs(int floorId)
+        {
+            var labs = _context.Labs.Where(l => l.FloorId == floorId).ToList();
+            return Json(labs);
+        }
+
+        //GET AJAX PC COUNT
+        [HttpGet]
+        public IActionResult GetPcCount(int labId) 
+        {
+            var pc = _context.Pcs.Where(p => p.LabId == labId);
+            return Json(pc);
         }
     }
 }
