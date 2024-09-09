@@ -1,0 +1,33 @@
+﻿<div class="container py-5">
+    <div class="row">
+        <div class="col-12 my-3">
+            <a class="text-black text-decoration-none" asp-action="Roles">Go Back </a>
+        </div>
+        <div class="col-12 d-flex justify-content-center align-items-center">
+            <div class="row">
+                <div class="col-md-12 d-flex flex-column gap-1">
+                    <h1 class="font-body fw-bold display-3">Add Role</h1>
+                    <p>Always remember Roles are important part of this Application</p>
+                    <div class="col-12 my-3" >
+                        @if(TempData["RoleError"] != null)
+                        {
+                            <div class="alert alert-danger" role="alert" >
+                                @TempData["RoleError"]
+                            </div>
+                        }
+                        @if (TempData["RoleSuccess"] != null)
+                        {
+                            <div class="alert alert-success" role="alert">
+                                @TempData["RoleSuccess"]
+                            </div>
+                        }
+                    </div>
+                    <form method="post" asp-action="AddRoles" class="d-flex flex-column gap-3">
+                        <input class="input-custom" name="roleName" placeholder="RoleName" />
+                        <button type="submit" class="primary-btn text-center">Add</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

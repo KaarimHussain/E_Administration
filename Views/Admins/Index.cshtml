@@ -1,4 +1,5 @@
-﻿<div class="container-fluid position-relative">
+﻿@model IEnumerable<Institute>
+<div class="container-fluid position-relative">
     <div class="row">
         <!-- Admin Offcanvas and Side navigation-bar are here -->
         @await Html.PartialAsync("_AdminSidebarPartial")
@@ -22,46 +23,38 @@
                         </div>
                     </div>
                     <hr />
+                    <h2 class="font-body text-center text-black fw-bold display-4">Institutes</h2>
                     <!-- Home View -->
-                    <div class="col-12">
-                        <div class="row">
-                            <div class="col-lg-4 col-md-6 col-sm-12 col-12 mb-4">
-                                <div class="bg-black rounded-5 p-3 shadow-lg">
-                                    <h1 class="display-6 font-body fw-bold text-white">@ViewData["Students"]</h1>
-                                    <span class="text-black-50 text-white-50">Total Users</span>
+                    <div class="col-12 my-3">
+                        <a asp-action="AddInstitute" class="primary-btn">Add Institute</a>
+                    </div>
+                    <div class="col-12 my-3">
+                        @if (ViewBag.Message == null)
+                        {
+                            @foreach (var ist in Model)
+                            {
+                                <div class="col-12 mb-3 border border-3 rounded-4 p-3 d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h3 class="fw-bold font-body text-black">
+                                            @ist.InstituteName
+                                        </h3>
+                                        <small class="text-black-50 col-12 text-truncate">@ist.InstituteDescription</small>
+                                        <br />
+                                        <small>
+                                            <i class="bi bi-geo-alt-fill"></i><i class="text-black-50 font-heading">@ist.InstituteAddress | @ist.CreatedAt.ToString("MMMM dd, yyyy HH:mm:ss")</i>
+                                        </small>
+                                    </div>
+                                    <div>
+                                        <a asp-action="DetailInstitutes" asp-route-id="@ist.InstituteId" class="primary-btn">View Details
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6 col-sm-12 col-12 mb-4">
-                                <div class="half-bg-uranian rounded-5 p-3 shadow-lg">
-                                    <h1 class="display-6 font-body fw-bold">@ViewData["Faculty"]</h1>
-                                    <span class="text-black-50">Total Teachers</span>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6 col-sm-12 col-12 mb-4">
-                                <div class="half-bg-uranian rounded-5 p-3 shadow-lg">
-                                    <h1 class="display-6 font-body fw-bold">@ViewData["HOD"]</h1>
-                                    <span class="text-black-50">Total Head of Department (HOD)</span>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6 col-sm-12 col-12 mb-4">
-                                <div class="half-bg-uranian rounded-5 p-3 shadow-lg">
-                                    <h1 class="display-6 font-body fw-bold">@ViewData["Labs"]</h1>
-                                    <span class="text-black-50">Total Labs</span>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6 col-sm-12 col-12 mb-4">
-                                <div class="half-bg-uranian rounded-5 p-3 shadow-lg">
-                                    <h1 class="display-6 font-body fw-bold">@ViewData["PC"]</h1>
-                                    <span class="text-black-50">Total Computers</span>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6 col-sm-12 col-12 mb-4">
-                                <div class="half-bg-uranian rounded-5 p-3 shadow-lg">
-                                    <h1 class="display-6 font-body fw-bold">@ViewData["Software"]</h1>
-                                    <span class="text-black-50">Total Software</span>
-                                </div>
-                            </div>
-                        </div>
+                            }
+                        }
+                        else
+                        {
+                            <h4 class="text-center text-black-50 fw-bold font-body">@ViewBag.Message</h4>
+                        }
                     </div>
                     <!-- -->
                 </div>

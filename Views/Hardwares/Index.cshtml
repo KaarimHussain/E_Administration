@@ -25,7 +25,7 @@
                 @Html.DisplayNameFor(model => model.StorageCapacity)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.OperatingSystem)
+                @Html.DisplayNameFor(model => model.OsName)
             </th>
             <th></th>
         </tr>
@@ -46,7 +46,7 @@
                 @Html.DisplayFor(modelItem => item.StorageCapacity)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.OperatingSystem)
+                @Html.DisplayFor(modelItem => item.OsName)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.HardId">Edit</a> |

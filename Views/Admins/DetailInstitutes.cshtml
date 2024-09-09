@@ -1,0 +1,110 @@
+﻿@model Institute
+<div class="container-fluid position-relative">
+    <div class="row">
+        <!-- Admin Offcanvas and Side navigation-bar are here -->
+        @await Html.PartialAsync("_AdminSidebarPartial")
+        <div class="col-lg-9 col-md-12 col-12">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="p-4 d-flex justify-content-between align-items-center flex-lg-row flex-md-column flex-column gap-2">
+                            <div>
+                                <h3 class="font-body">Welcome, Admin! What's Cooking🤔</h3>
+                                <p class="text-black-50 fw-normal">Here you can view the details about the Institute</p>
+                            </div>
+                            <div class="d-flex gap-2">
+                                <a asp-action="Logout" asp-controller="Login" class="primary-icon-btn">
+                                    <i class="bi bi-door-open-fill"></i>
+                                </a>
+                                <a asp-action="Logout" asp-controller="Login" class="primary-icon-btn">
+                                    <i class="bi bi-bell-fill"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <a asp-action="Index" class="text-decoration-none text-black-50"><i class="bi bi-arrow-left" ></i> Back to List</a>
+                    <span class="text-black-50 text-center" >Name of the Institute</span>
+                    <i class="text-center bi bi-arrow-down"></i>
+                    <h1 class="font-body text-center text-black fw-bold">@Model.InstituteName</h1>
+                    <!-- Institute Details View -->
+                    <div class="container my-3">
+                       <div class="row" >
+                           <div class="col-lg-4 col-md-6 col-sm-12 col-12 mb-4">
+                                <div class="shadow w-100 py-3 px-5 rounded-4 text-center primary-bg">
+                                    <a asp-action="ViewFloor" asp-route-id="@Model.InstituteId" class="text-decoration-none font-body fs-3 text-white fw-bold">
+                                       Floors
+                                   </a>
+                               </div>
+                           </div>
+                           <div class="col-lg-4 col-md-6 col-sm-12 col-12 mb-4">
+                                <div class="shadow w-100 py-3 px-5 rounded-4 text-center primary-bg">
+                                    <a asp-action="" asp-route-id="" class="text-decoration-none font-body fs-3 text-white fw-bold">
+                                       Labs
+                                   </a>
+                               </div>
+                           </div>
+                            <div class="col-lg-4 col-md-6 col-sm-12 col-12 mb-4">
+                                <div class="shadow w-100 py-3 px-5 rounded-4 text-center primary-bg">
+                                    <a asp-action="" asp-route-id="" class="text-decoration-none font-body fs-3 text-white fw-bold">
+                                        HOD
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-sm-12 col-12 mb-4">
+                                <div class="shadow w-100 py-3 px-5 rounded-4 text-center primary-bg">
+                                    <a asp-action="" asp-route-id="" class="text-decoration-none font-body fs-3 text-white fw-bold">
+                                        Courses
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-sm-12 col-12 mb-4">
+                                <div class="shadow w-100 py-3 px-5 rounded-4 text-center primary-bg">
+                                    <a asp-action="" asp-route-id="" class="text-decoration-none font-body fs-3 text-white fw-bold">
+                                        Teacher
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-sm-12 col-12 mb-4">
+                                <div class="shadow w-100 py-3 px-5 rounded-4 text-center primary-bg">
+                                    <a asp-action="" asp-route-id="" class="text-decoration-none font-body fs-3 text-white fw-bold">
+                                        Tech Report
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-sm-12 col-12 mb-4">
+                                <div class="shadow w-100 py-3 px-5 rounded-4 text-center primary-bg">
+                                    <a asp-action="" asp-route-id="" class="text-decoration-none font-body fs-3 text-white fw-bold">
+                                        HOD Responses
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-sm-12 col-12 mb-4">
+                                <div class="shadow w-100 py-3 px-5 rounded-4 text-center primary-bg">
+                                    <a asp-action="" asp-route-id="" class="text-decoration-none font-body fs-3 text-white fw-bold">
+                                        Hardware Info
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-sm-12 col-12 mb-4">
+                                <div class="shadow w-100 py-3 px-5 rounded-4 text-center primary-bg">
+                                    <a asp-action="" asp-route-id="" class="text-decoration-none font-body fs-3 text-white fw-bold">
+                                        Server
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-sm-12 col-12 mb-4">
+                                <div class="shadow w-100 py-3 px-5 rounded-4 text-center primary-bg">
+                                    <a asp-action="" asp-route-id="" class="text-decoration-none font-body fs-3 text-white fw-bold">
+                                        Go To Floor
+                                    </a>
+                                </div>
+                            </div>
+                       </div>
+                    </div>
+                    <!-- -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,4 +1,5 @@
-﻿@model IEnumerable<E_Administration.Models.Pc>
+﻿@model IEnumerable<E_Administration.Models.Floor>
+
 <div class="container-fluid position-relative">
     <div class="row">
         <!-- Admin Offcanvas and Side navigation-bar are here -->
@@ -10,7 +11,7 @@
                         <div class="p-4 d-flex justify-content-between align-items-center flex-lg-row flex-md-column flex-column gap-2">
                             <div>
                                 <h3 class="font-body">Welcome, Admin! What's Cooking🤔</h3>
-                                <p class="text-black-50 fw-normal">Here you can manipulate almost anything</p>
+                                <p class="text-black-50 fw-normal">Here you can view the details about the Institute</p>
                             </div>
                             <div class="d-flex gap-2">
                                 <a asp-action="Logout" asp-controller="Login" class="primary-icon-btn">
@@ -23,30 +24,37 @@
                         </div>
                     </div>
                     <hr />
-                   <!-- Users View -->
-                    <div class="col-12">
-                        <table class="table table-responsive">
+                    <a asp-action="Index" class="text-decoration-none text-black-50"><i class="bi bi-arrow-left"></i> Back to List</a>
+                    <div class="col-12 my-3" >
+                        <a asp-action="AddFloor" class="primary-btn">Add Floors</a>
+                    </div>
+                    <!-- Institute Details View -->
+                    <div class="container my-3">
+                        <table class="table">
                             <thead>
                                 <tr>
-                                    <th>PC Name</th>
-                                    <th>Purchased At</th>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Institute Name</th>
+                                    <th scope="col">Floor Name</th>
+                                    <th scope="col">Created At</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var pc in Model)
+                                @foreach (var floor in Model)
                                 {
                                     <tr>
-                                        <td>@pc.PcName</td>
-                                        <td>@pc.PurchasedAt</td>
+                                        <th scope="row">@floor.FloorId</th>
+                                        <td>@floor.Institute?.InstituteName</td>
+                                        <td>@floor.FloorName</td>
+                                        <td>@floor.CreatedAt</td>
                                     </tr>
                                 }
                             </tbody>
                         </table>
                     </div>
-                   <!--  -->
+                    <!-- -->
                 </div>
             </div>
         </div>
     </div>
 </div>
-

@@ -9,9 +9,9 @@ public partial class Lab
 
     public int FloorId { get; set; }
 
-    public string LabName { get; set; } = null!;
-
     public virtual Floor Floor { get; set; } = null!;
 
     public virtual ICollection<Pc> Pcs { get; set; } = new List<Pc>();
+
+    public virtual ICollection<Schedule> Schedules { get; set; } = new List<Schedule>();
 }

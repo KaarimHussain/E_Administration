@@ -1,5 +1,6 @@
 ﻿using E_Administration.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Linq; // Make sure to include this for LINQ operations
 
@@ -13,23 +14,103 @@ namespace E_Administration.Controllers
         {
             _context = context;
         }
+        //GET
+        public async Task<IActionResult> Index()
+        {
+            if (!User.IsInRole("Admin"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            var institutes = await _context.Institutes.ToListAsync();
+            if (institutes == null || !institutes.Any())
+            {
+                ViewBag.Message = "No Institute Found";
+            }
+            return View(institutes);
+        }
+        // GET
+        public IActionResult AddInstitute()
+        {
+            return View();
+        }
 
-        public IActionResult Index()
+        // POST
+        [HttpPost]
+        public async Task<IActionResult> AddInstitute(Institute inst)
+        {
+            if (ModelState.IsValid)
+            {
+                inst.CreatedAt = DateTime.Now; // Set the CreatedAt field
+                _context.Institutes.Add(inst);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+
+            // If validation fails, redisplay the form
+            return View(inst);
+        }
+
+        // GET: InstituteDetails/5
+        public async Task<IActionResult> DetailInstitutes(int id)
         {
             if (!User.IsInRole("Admin"))
             {
                 return RedirectToAction("Index", "Home");
             }
 
-            ViewData["Students"] = _context.Users.Count();
-            ViewData["Faculty"] = _context.Users.Count(u => u.RoleId == 4);
-            ViewData["HOD"] = _context.Users.Count(u => u.RoleId == 6);
-            ViewData["Labs"] = _context.Labs.Count();
-            ViewData["PC"] = _context.Pcs.Count();
-            ViewData["Software"] = _context.Softwares.Count();
+            var institute = await _context.Institutes
+                .FirstOrDefaultAsync(i => i.InstituteId == id);
 
+            if (institute == null)
+            {
+                return NotFound();
+            }
+
+            return View(institute);
+        }
+
+        public async Task<IActionResult> ViewFloor(int id)
+        {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var floors = await _context.Floors
+                .Where(f => f.InstituteId == id)
+                .Include(f => f.Institute) // Eagerly load the Institute
+                .ToListAsync(); // Ensure you get a list
+
+            return View(floors); // Pass the list to the view
+        }
+
+        // GET
+        public IActionResult AddFloor()
+        {
+            ViewData["InstituteId"] = new SelectList(_context.Institutes, "InstituteId", "InstituteName");
             return View();
         }
+
+        // POST
+        [HttpPost]
+        public async Task<IActionResult> AddFloor(Floor floor)
+        {
+            if (!ModelState.IsValid)
+            {
+                floor.CreatedAt = DateTime.Now;
+                _context.Floors.Add(floor);
+                await _context.SaveChangesAsync();
+                ViewData["InstituteId"] = new SelectList(_context.Institutes, "InstituteId", "InstituteName", floor.InstituteId);
+                TempData["FloorSuccess"] = "The Floor was added Successfully";
+                return View("AddFloor"); // Redirect to a relevant page after successful addition
+            }
+
+            // If model validation fails, re-display the form with validation errors
+            ViewData["InstituteId"] = new SelectList(_context.Institutes, "InstituteId", "InstituteName", floor.InstituteId);
+            return View(floor);
+        }
+
+
         // GET
         public IActionResult Users()
         {
@@ -111,6 +192,38 @@ namespace E_Administration.Controllers
             var roles = _context.Roles.ToList();
             return View(roles);
         }
+        //GET
+        public IActionResult AddRoles()
+        {
+            if(!User.Identity.IsAuthenticated || !User.IsInRole("Admin"))
+            {
+                return RedirectToAction("Index","Home");
+            }
+            return View();
+        }
+
+        //POST
+        [HttpPost]
+        public async Task<IActionResult> AddRoles(string roleName)
+        {
+            var role = await _context.Roles.FirstOrDefaultAsync(r => r.RoleName.ToLower() == roleName.ToLower());
+            if (role == null)
+            {
+                // Create a new role since it doesn't exist
+                var newRole = new Role { RoleName = roleName };
+                _context.Roles.Add(newRole);
+                await _context.SaveChangesAsync(); // Use the async version of SaveChanges
+
+                TempData["RoleSuccess"] = "Successfully added Role";
+                return View();
+            }
+            else
+            {
+                TempData["RoleError"] = "Failed to Add Role: Role already exists";
+                return View();
+            }
+        }
+
         //POST
         [HttpPost]
         public IActionResult EditRole(int roleID)
@@ -125,7 +238,7 @@ namespace E_Administration.Controllers
                 return RedirectToAction("Roles");
             }
         }
-        [HttpPost]
+
         [HttpPost]
         public IActionResult changeRoleName(string roleName, int roleId)
         {
