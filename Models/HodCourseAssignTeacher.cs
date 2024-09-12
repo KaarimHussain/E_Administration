@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace E_Administration.Models;
 
 public partial class HodCourseAssignTeacher
 {
-    [Key]
     public int AssignId { get; set; }
 
     public int AssignBy { get; set; }

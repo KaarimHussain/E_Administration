@@ -23,3 +23,19 @@
     For local debugging, enable the <strong>Development</strong> environment by setting the <strong>ASPNETCORE_ENVIRONMENT</strong> environment variable to <strong>Development</strong>
     and restarting the app.
 </p>
+
+
+@* 
+use E_ADMINISTRATION;
+CREATE TABLE Files (
+    FileId INT PRIMARY KEY IDENTITY(1,1),
+    FileName NVARCHAR(255),
+    FilePath NVARCHAR(500),
+    Category NVARCHAR(100),      -- Added Category column
+    UploadDate DATETIME DEFAULT GETDATE(), -- Automatically sets the current timestamp
+    UploadedBy NVARCHAR(100)
+);
+INSERT INTO Files (FileName, FilePath, Category, UploadedBy)
+VALUES ('example.pdf', '/uploads/example.pdf', 'Educational', 'Admin');
+ALTER TABLE Files
+ADD FileData VARBINARY(MAX); *@

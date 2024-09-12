@@ -1,0 +1,100 @@
+﻿@model IEnumerable<E_Administration.Models.File>
+
+@{
+    ViewData["Title"] = "File List";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <script src="https://cdn.jsdelivr.net/npm/i8-icon@0.9.4/index.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/i8-icon@0.9.4/i8-icon.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+
+    <header>
+        <main class="section align-items-center" style="padding-top: 130px;">
+            @if (!User.IsInRole("Admin"))
+            {
+
+                <!-- Render the navbar only if the user is not an admin -->
+                <div class="container">
+                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel fw-bold">PORTALX ADMINISTRATION</h5>
+                </div>
+                <div style=" padding-top: 30px;padding-left:20px">
+                <a asp-controller="Home" asp-action="Index" class="primary-btn" style="text-decoration: none;">
+                        BACK
+                </a>
+                </div>
+
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav justify-content-end flex-grow-1 gap-3 pe-3">
+                        <div class="row">
+                            @foreach (var item in Model)
+                            {
+                                <div class="col-md-4 mb-4">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title">@item.FileName</h5>
+                                            <h6 class="card-subtitle mb-2 text-muted">@item.Category</h6>
+                                            <p class="card-text">
+                                                <strong>Uploaded By:</strong> @item.UploadedBy<br />
+                                                <strong>Upload Date:</strong> @item.UploadDate?.ToString("MMM dd, yyyy")<br />
+                                                <strong>File Path:</strong> <a href="@item.FileName" target="_blank">@item.FileName</a>
+                                            </p>
+                                            <a class="btn btn-info" asp-action="Details" asp-route-id="@item.FileId">Details</a>
+                                       @*      <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.FileId">Edit</a>
+                                            <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.FileId">Delete</a> *@
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </ul>
+                </div>
+            }else @if (User.IsInRole("Admin"))
+            {
+                  <!-- Render the navbar only if the user is not an admin -->
+                <div class="container">
+                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel fw-bold">PORTALX ADMINISTRATION</h5>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav justify-content-end flex-grow-1 gap-3 pe-3">
+                        <div class="row">
+                            @foreach (var item in Model)
+                            {
+                                <div class="col-md-4 mb-4">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title"></h5>
+                                            <h6 class="card-subtitle mb-2 text-muted">@item.Category</h6>
+                                            <p class="card-text">
+                                                <strong>Uploaded By:</strong> @item.UploadedBy<br />
+                                                <strong>Upload Date:</strong> @item.UploadDate?.ToString("MMM dd, yyyy")<br />
+                                                <strong>File Path:</strong> <a href="@item.FileName" target="_blank">@item.FileName</a>
+                                            </p>
+                                            <a class="btn btn-info" asp-action="Details" asp-route-id="@item.FileId">Details</a>
+                                                <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.FileId">Edit</a>
+                                                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.FileId">Delete</a> 
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </ul>
+                </div>
+            }
+
+        </main>
+    </header>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+
+</body>
+</html>

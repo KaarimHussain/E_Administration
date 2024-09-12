@@ -19,10 +19,12 @@
                 <div class="container">
                     <a class="navbar-brand text-white fw-light fs-3" asp-action="Index" asp-controller="Home">
                         <img class="nav-logo" width="70px" height="70px" src="~/Images/main-logo.png" />
-                    </a>
+                    </a>  
+                    
                     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
                         <i class="bi bi-list fs-1 text-white"></i>
                     </button>
+
                     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
                         <div class="offcanvas-header">
                             <h5 class="offcanvas-title" id="offcanvasNavbarLabel fw-bold">PORTALX ADMINISTRATION</h5>
@@ -32,6 +34,7 @@
                             <ul class="navbar-nav justify-content-end flex-grow-1 gap-3 pe-3">
                                 @if (!User.Identity.IsAuthenticated)
                                 {
+                                
                                     <li class="nav-item">
                                         <a asp-action="Index" class="text-decoration-none" asp-controller="Signup">
                                             <button class="primary-btn">
@@ -56,6 +59,7 @@
                                             </button>
                                         </a>
                                     </li>
+
                                 }
                             </ul>
                         </div>
@@ -66,8 +70,11 @@
     </header>
 
     <div>
+      
         <main role="main">
+           
             @RenderBody()
+           
         </main>
 
     </div>

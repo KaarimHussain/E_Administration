@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewData["Title"] = "AdminServerview";
+}
+
+<h1>AdminServerview</h1>
+
+@if (User.IsInRole("Admin"))
+
+{
+    <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 20px;">
+        <div>
+            <button class="primary-btn" style="background-color: #007bff; border: none; padding: 10px 20px; cursor: pointer;">
+                <a style="color: white; text-decoration: none; font-family: Constantia;" asp-action="Create">Add Something To the Server</a>
+            </button>
+        </div>
+
+        <div>
+            <button class="primary-btn" style="background-color: #007bff; border: none; padding: 10px 20px; cursor: pointer;">
+                <a style="color: white; text-decoration: none; font-family: Constantia;" asp-action="Index">Visit Server</a>
+            </button>
+        </div>
+    </div>
+
+}
+else
+
+{
+    <div class="container">
+        <p class="text-danger">Access denied. Admins only.</p>
+    </div>
+}
