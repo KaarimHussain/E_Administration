@@ -1,0 +1,65 @@
+﻿@model E_Administration.Models.File
+
+@{
+    ViewData["Title"] = "Create File Upload";
+}
+
+<h1>Create File Upload</h1>
+
+<hr />
+
+<div class="row">
+    <div>
+        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    </div>
+    <div class="col-md-6 offset-md-3">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="FileName" class="control-label"></label>
+                <input asp-for="FileName" class="form-control" placeholder="Enter file name" />
+                <span asp-validation-for="FileName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Category" class="control-label"></label>
+                <select asp-for="Category" class="form-control">
+                    <option value="">Select Category</option>
+                    <option value="Educational">Educational</option>
+                    <option value="Entertainment">Entertainment</option>
+                    <option value="Courses">Courses</option>
+                </select>
+                <span asp-validation-for="Category" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="UploadedBy" class="control-label"></label>
+                <select asp-for="UploadedBy" class="form-control">
+                    <option value="">Select Uploader</option>
+                    <option value="Admin">Admin</option>
+                    <option value="HOD">HOD</option>
+                    <option value="Tech Staff">Tech Staff</option>
+                    <option value="Teacher">Teacher</option>
+                </select>
+                <span asp-validation-for="UploadedBy" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="fileUpload" class="control-label">Select File</label>
+                <input type="file" id="fileUpload" name="uploadedFile" class="form-control" />
+                <span asp-validation-for="FilePath" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -17,5 +17,9 @@ public partial class Hardware
 
     public int? StorageCapacity { get; set; }
 
+    public int InstituteId { get; set; }
+
+    public virtual Institute Institute { get; set; } = null!;
+
     public virtual ICollection<Pc> Pcs { get; set; } = new List<Pc>();
 }

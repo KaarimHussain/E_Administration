@@ -24,99 +24,42 @@
                         </div>
                     </div>
                     <hr />
-                    <div class="col-12 my-4">
-                        <a asp-action="" class="primary-btn" >
-                            <i class="bi bi-plus-lg" ></i> Add User
-                        </a>
-                    </div>
-                    <!-- Printing Errors Or Success Messages -->
-                    @if (TempData["UsersError"] != null)
-                    {
-                    <div class="alert alert-danger" role="alert">
-                        <i class="bi bi-exclamation-mark"></i> @TempData["UsersError"]
-                    </div>
-                    }
-                    @if (TempData["UserSuccess"] != null)
-                    {
-                        <div class="alert alert-success" role="alert">
-                            <i class="bi bi-tick-lg"></i> @TempData["UserSuccess"]
-                        </div>
-                    }
-                    <!-- -- -->
                     <!-- Users View -->
                     <div class="col-12">
                         <table class="table table-responsive">
                             <thead>
                                 <tr>
+                                    <th>User ID</th>
                                     <th>Name</th>
                                     <th>Email</th>
-                                    <th>Delete</th>
-                                    <th>Edit</th>
-                                    <th>Make HOD</th>
+                                    <th>Institute</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach (var user in Model)
                                 {
                                     <tr>
+                                        <td>@user.Id</td>
+                                        <td>@user.Username</td>
+                                        <td>@user.Email</td>
                                         <td>
-                                            @user.Username
-                                        </td>
-                                        <td>
-                                            @user.Email
-                                        </td>
-                                        <td>
-                                            <form asp-action="DeleteUser" method="post">
-                                                <!-- Send user ID and RoleId to the controller -->
-                                                <input type="hidden" name="userId" value="@user.Id" />
-                                                <button type="submit" class="primary-icon-btn">
-                                                    <i class="bi bi-trash-fill" ></i>
-                                                </button>
-                                            </form>
-                                        </td>
-                                        <div>
-                                                 <div class="shadow w-100 py-3 px-5 rounded-4 text-center primary-bg mb-3">
-                                                    <a asp-action="Edit" asp-controller="Users" asp-route-id="@user.Id" class="text-decoration-none font-body fs-3 text-white fw-bold">
-                                                        Edit HOD - @user.Username
-                                                    </a>
-                                                </div>
-                                        </div>
-
-
-                                        <td>
-                                           
-                                                <!-- Send user ID and RoleId to the controller -->
-                                                
-                                                <a type="submit" class="primary-icon-btn" asp-action="Edit" asp-controller="Users" asp-route-id="@user.Id">
-                                                    <i class="bi bi-pencil-square"></i>
-                                                </a>
-                                            
-                                        </td>
-                                        <td>
-                                        @if (ViewBag.HodRoleID.RoleName != null)
-                                        {
-                                            <form asp-action="UpdateRoleToHOD" method="post">
-                                                <!-- Send user ID and RoleId to the controller -->
-                                                <input type="hidden" name="userId" value="@user.Id" />
-                                                <input type="hidden" name="roleId" value="@ViewBag.HodRoleID.RoleId" /> <!-- RoleId for HOD (3) -->
-                                                <button type="submit" class="primary-icon-btn">
-                                                    <i class="bi bi-person-check-fill"></i>
-                                                </button>
-                                            </form>
-                                        }else
-                                        {
-                                            <small>The HOD is not Set in the DB</small>
-                                        }
+                                            @if (user.HodInstitutes.Any())
+                                            {
+                                                @string.Join(", ", user.HodInstitutes.Select(h => h.Institute.InstituteName));
+                                            }
+                                            else
+                                            {
+                                                <p>No Institute Found</p>
+                                            }
                                         </td>
                                     </tr>
                                 }
                             </tbody>
                         </table>
                     </div>
-                   <!--  -->
+                    <!--  -->
                 </div>
             </div>
         </div>
     </div>
 </div>
-

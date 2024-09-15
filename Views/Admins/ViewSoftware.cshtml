@@ -1,0 +1,99 @@
+﻿@model IEnumerable<E_Administration.Models.Software>
+
+<div class="container-fluid position-relative">
+    <div class="row">
+        <!-- Admin Offcanvas and Side navigation-bar are here -->
+        @await Html.PartialAsync("_AdminSidebarPartial")
+        <div class="col-lg-9 col-md-12 col-12">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="p-4 d-flex justify-content-between align-items-center flex-lg-row flex-md-column flex-column gap-2">
+                            <div>
+                                <h3 class="font-body">Welcome, Admin! What's Cooking🤔</h3>
+                                <p class="text-black-50 fw-normal">Here you can view the details about the Institute</p>
+                            </div>
+                            <div class="d-flex gap-2">
+                                <a asp-action="Logout" asp-controller="Login" class="primary-icon-btn">
+                                    <i class="bi bi-door-open-fill"></i>
+                                </a>
+                                <a asp-action="Logout" asp-controller="Login" class="primary-icon-btn">
+                                    <i class="bi bi-bell-fill"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <a asp-action="DetailInstitutes" asp-route-id="@ViewBag.InstituteId" class="text-decoration-none text-black-50"><i class="bi bi-arrow-left"></i> Back to List</a>
+                    <div class="my-3" >
+                    <a class="primary-btn" asp-action="AddSoftware" asp-route-id="@ViewBag.InstituteId"> Add Software</a>
+                    </div>
+                    <h1 class="font-body fw-bold text-center text-black">
+                        Software
+                    </h1>
+                    <div class="col-12 my-1">
+                        @if (TempData["SoftError"] != null)
+                        {
+                            <div class="alert alert-danger" role="alert">
+                                @TempData["SoftError"]
+                            </div>
+                        }
+                        @if (TempData["SoftSuccess"] != null)
+                        {
+                            <div class="alert alert-success" role="alert">
+                                @TempData["SoftSuccess"]
+                            </div>
+                        }
+                    </div>
+                    <!-- System View -->
+                    <div class="container my-3">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Software Name</th>
+                                    <th scope="col">Purchased Date</th>
+                                    <th scope="col">Expire Date</th>
+                                    <th scope="col">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null || !Model.Any())
+                                {
+                                    @foreach (var software in Model)
+                                    {
+                                        <tr>
+                                            <th scope="row">@software.SoftId</th>
+                                            <td>@software.SoftwareName</td>
+                                            <td>@software.PurchasedDate</td>
+                                            <td>@software.ExpireDate</td>
+                                            <td class="d-flex gap-2">
+                                                <form method="post" asp-action="DeleteSoftware">
+                                                    <input type="hidden" name="instituteId" value="@ViewBag.InstituteId" />
+                                                    <input type="hidden" name="SoftwareId" value="@software.SoftId" />
+                                                    <button class="primary-icon-btn" type="submit">
+                                                        <i class="bi bi-trash-fill"></i>
+                                                    </button>
+                                                </form>
+                                                <a class="primary-icon-btn" asp-action="EditSoftware" asp-route-id="@ViewBag.InstituteId" asp-route-SoftId="@software.SoftId">
+                                                    <i class="bi bi-pencil-square"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <th class="text-center fw-bold text-black-50" colspan="5">No Software Found</th>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

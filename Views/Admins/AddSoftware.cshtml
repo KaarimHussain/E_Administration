@@ -1,0 +1,39 @@
+﻿<div class="container py-5">
+    <div class="row">
+        <div class="col-12 my-3">
+            <a class="text-black text-decoration-none" asp-action="ViewSoftware" asp-route-id="@ViewBag.InstituteId">Go Back </a>
+        </div>
+        <div class="col-12 d-flex justify-content-center align-items-center">
+            <div class="row">
+                <div class="col-md-12 d-flex flex-column gap-1">
+                    <h1 class="font-body fw-bold display-3">Add Software</h1>
+                    <p>Add Software Now and use them in your PC's later!</p>
+                    <div class="col-12 my-1">
+                        @if (TempData["SoftError"] != null)
+                        {
+                            <div class="alert alert-danger" role="alert">
+                                @TempData["SoftError"]
+                            </div>
+                        }
+                        @if (TempData["SoftSuccess"] != null)
+                        {
+                            <div class="alert alert-success" role="alert">
+                                @TempData["SoftSuccess"]
+                            </div>
+                        }
+                    </div>
+                    <form method="post" asp-action="AddSoftware" class="d-flex flex-column gap-2">
+                        <label class="text-black">Software Name</label>
+                        <input class="input-custom" name="SoftwareName" required placeholder="Software Name..." />
+                        <label class="text-black">Purchase Date</label>
+                        <input class="input-custom" type="date" name="PurchasedDate" required />
+                        <label class="text-black">Expired Date</label>
+                        <input class="input-custom" type="date" name="ExpireDate" required />
+                        <input type="hidden" name="InstituteId" value="@ViewBag.InstituteId" />
+                        <button type="submit" class="primary-btn text-center">Add</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

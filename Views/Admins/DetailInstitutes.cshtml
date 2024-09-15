@@ -27,16 +27,15 @@
                     <span class="text-black-50 text-center" >Name of the Institute</span>
                     <i class="text-center bi bi-arrow-down"></i>
                     <h1 class="font-body text-center text-black fw-bold">@Model.InstituteName</h1>
+                    @if(TempData["DetailInstituteError"] != null)
+                    {
+                        <div class="alert alert-danger" role="alert">
+                            @TempData["DetailInstituteError"]
+                        </div>
+                    }
                     <!-- Institute Details View -->
                     <div class="container my-3">
                        <div class="row" >
-                           <div class="col-lg-4 col-md-6 col-sm-12 col-12 mb-4">
-                                <div class="shadow w-100 py-3 px-5 rounded-4 text-center primary-bg">
-                                    <a asp-action="ViewFloor" asp-route-id="@Model.InstituteId" class="text-decoration-none font-body fs-3 text-white fw-bold">
-                                       Floors
-                                   </a>
-                               </div>
-                           </div>
                            <div class="col-lg-4 col-md-6 col-sm-12 col-12 mb-4">
                                 <div class="shadow w-100 py-3 px-5 rounded-4 text-center primary-bg">
                                 <a asp-action="ViewLabs" asp-route-id="@Model.InstituteId" class="text-decoration-none font-body fs-3 text-white fw-bold">
@@ -46,21 +45,28 @@
                            </div>
                             <div class="col-lg-4 col-md-6 col-sm-12 col-12 mb-4">
                                 <div class="shadow w-100 py-3 px-5 rounded-4 text-center primary-bg">
-                                    <a asp-action="Users" asp-route-id="" class="text-decoration-none font-body fs-3 text-white fw-bold">
+                                    <a asp-action="ViewSystem" asp-route-id="@Model.InstituteId" class="text-decoration-none font-body fs-3 text-white fw-bold">
+                                        System
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-sm-12 col-12 mb-4">
+                                <div class="shadow w-100 py-3 px-5 rounded-4 text-center primary-bg">
+                                    <a asp-action="ViewHod" asp-route-id="@Model.InstituteId" class="text-decoration-none font-body fs-3 text-white fw-bold">
                                         HOD
                                     </a>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-6 col-sm-12 col-12 mb-4">
                                 <div class="shadow w-100 py-3 px-5 rounded-4 text-center primary-bg">
-                                    <a asp-action="" asp-route-id="" class="text-decoration-none font-body fs-3 text-white fw-bold">
+                                    <a asp-action="ViewCourses" asp-route-id="@Model.InstituteId" class="text-decoration-none font-body fs-3 text-white fw-bold">
                                         Courses
                                     </a>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-6 col-sm-12 col-12 mb-4">
                                 <div class="shadow w-100 py-3 px-5 rounded-4 text-center primary-bg">
-                                    <a asp-action="" asp-route-id="" class="text-decoration-none font-body fs-3 text-white fw-bold">
+                                    <a asp-action="ViewTeachers" asp-route-id="@Model.InstituteId" class="text-decoration-none font-body fs-3 text-white fw-bold">
                                         Teacher
                                     </a>
                                 </div>
@@ -82,13 +88,6 @@
                             <div class="col-lg-4 col-md-6 col-sm-12 col-12 mb-4">
                                 <div class="shadow w-100 py-3 px-5 rounded-4 text-center primary-bg">
                                     <a asp-action="" asp-route-id="" class="text-decoration-none font-body fs-3 text-white fw-bold">
-                                        Hardware Info
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6 col-sm-12 col-12 mb-4">
-                                <div class="shadow w-100 py-3 px-5 rounded-4 text-center primary-bg">
-                                    <a asp-action="" asp-route-id="" class="text-decoration-none font-body fs-3 text-white fw-bold">
                                         Server
                                     </a>
                                 </div>
@@ -97,6 +96,20 @@
                                 <div class="shadow w-100 py-3 px-5 rounded-4 text-center primary-bg">
                                     <a asp-action="ViewComplaints" asp-route-id="@Model.InstituteId" class="text-decoration-none font-body fs-3 text-white fw-bold">
                                         Complaints
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-sm-12 col-12 mb-4">
+                                <div class="shadow w-100 py-3 px-5 rounded-4 text-center primary-bg">
+                                    <a asp-action="ViewDepartments" asp-route-id="@Model.InstituteId" class="text-decoration-none font-body fs-3 text-white fw-bold">
+                                        Departments
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-sm-12 col-12 mb-4">
+                                <div class="shadow w-100 py-3 px-5 rounded-4 text-center primary-bg">
+                                    <a asp-action="ViewRoles" asp-route-id="@Model.InstituteId" class="text-decoration-none font-body fs-3 text-white fw-bold">
+                                        Roles
                                     </a>
                                 </div>
                             </div>

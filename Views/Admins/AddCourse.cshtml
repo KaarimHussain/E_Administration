@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "Add Course";
+}
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-12 my-3">
+            <a class="text-black text-decoration-none" asp-route-id="@ViewBag.InstituteId" asp-action="ViewCourses">Go Back @ViewBag.InstituteId</a>
+        </div>
+        <div class="col-12 d-flex justify-content-center align-items-center">
+            <div class="row">
+                <div class="col-md-12 d-flex flex-column gap-1">
+                    <h1 class="font-body fw-bold display-3">Add Course</h1>
+                    <p>Adding the Course for Student</p>
+                    @{
+                        if(TempData["CourseSuccess"] != null)
+                        {
+                            <div class="alert alert-success" role="alert" >
+                                @TempData["CourseSuccess"]
+                            </div>
+                        }
+                        if (TempData["CourseError"] != null)
+                        {
+                            <div class="alert alert-danger" role="alert">
+                                @TempData["CourseError"]
+                            </div>
+                        }
+                    }
+                    <form method="post" asp-action="AddCourse" class="d-flex flex-column gap-3">
+                        <input type="hidden" name="instituteId" value="@ViewBag.InstituteId" />
+                        <input class="input-custom" placeholder="Enter Course Name..." name="CourseName"/>
+                        <input type="date" class="input-custom" placeholder="Enter Course Duration" name="CourseDuration" />
+                        <button type="submit" class="primary-btn text-center">Add</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

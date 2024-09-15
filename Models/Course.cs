@@ -15,5 +15,9 @@ public partial class Course
 
     public DateTime CreatedAt { get; set; }
 
+    public int InstituteId { get; set; }
+
     public virtual ICollection<HodCourseAssignTeacher> HodCourseAssignTeachers { get; set; } = new List<HodCourseAssignTeacher>();
+
+    public virtual Institute Institute { get; set; } = null!;
 }

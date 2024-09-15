@@ -1,0 +1,85 @@
+﻿@model E_Administration.Models.Hardware
+@{
+    ViewData["Title"] = "Edit Hardware";
+}
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-12 my-3">
+            <a class="text-black text-decoration-none" asp-action="ViewHardware" asp-route-id="@ViewBag.InstituteId">Go Back</a>
+        </div>
+        <div class="col-12 d-flex justify-content-center align-items-center">
+            <div class="row">
+                <div class="col-md-12 d-flex flex-column gap-1">
+                    <h1 class="font-body fw-bold display-3">Edit Hardware Components</h1>
+                    <p>Edit the Hardware Details</p>
+                    <form method="post" asp-action="EditHardware" class="d-flex flex-column gap-3">
+                        <input type="hidden" name="Instituteid" value="@ViewBag.InstituteId" />
+                        <input type="hidden" name="HardId" value="@Model.HardId" />
+
+                        <div>
+                            <label>Hardware Name</label>
+                            <input type="text" name="HardwareName" value="@Model.HardwareName" class="form-control" />
+                        </div>
+                        <div>
+                            <label>Processor</label>
+                            <input type="text" name="Processor" value="@Model.Processor" class="form-control" />
+                        </div>
+                        <label class="text-black">RAM</label>
+                        <select class="input-custom" name="Ram">
+                            <option value="@Model.Ram" selected>@Model.Ram GB</option>
+                            <option value="1">1 GB</option>
+                            <option value="2">2 GB</option>
+                            <option value="3">3 GB</option>
+                            <option value="4">4 GB</option>
+                            <option value="6">6 GB</option>
+                            <option value="8">8 GB</option>
+                            <option value="16">16 GB</option>
+                            <option value="34">34 GB</option>
+                            <option value="62">64 GB</option>
+                        </select>
+
+                        <label class="text-black">OS (Operating System)</label>
+                        <select class="input-custom" name="OsName">
+                            <option value="@Model.OsName" selected>@Model.OsName</option>
+                            <option value="Windows 11">Windows 11</option>
+                            <option value="Windows 10">Windows 10</option>
+                            <option value="Windows 8.1">Windows 8.1</option>
+                            <option value="Windows 7">Windows 7</option>
+                            <option value="macOS Sonoma">macOS Sonoma</option>
+                            <option value="macOS Ventura">macOS Ventura</option>
+                            <option value="macOS Monterey">macOS Monterey</option>
+                            <option value="macOS Big Sur">macOS Big Sur</option>
+                            <option value="Ubuntu">Ubuntu</option>
+                            <option value="Fedora">Fedora</option>
+                            <option value="Debian">Debian</option>
+                            <option value="Linux Mint">Linux Mint</option>
+                            <option value="Arch Linux">Arch Linux</option>
+                            <option value="CentOS">CentOS</option>
+                            <option value="openSUSE">openSUSE</option>
+                            <option value="Kali Linux">Kali Linux</option>
+                            <option value="Red Hat Enterprise Linux">Red Hat Enterprise Linux</option>
+                            <option value="Manjaro">Manjaro</option>
+                        </select>
+
+                        <label class="text-black">Storage Capacity</label>
+                        <select class="input-custom" name="StorageCapacity">
+                            <option value="@Model.StorageCapacity" selected>@Model.StorageCapacity</option>
+                            <option value="60">60 GB</option>
+                            <option value="80">80 GB</option>
+                            <option value="100">100 GB</option>
+                            <option value="120">120 GB</option>
+                            <option value="240">240 GB</option>
+                            <option value="360">360 GB</option>
+                            <option value="612">612 GB</option>
+                            <option value="1">1 TB</option>
+                            <option value="2">2 TB</option>
+                            <!-- More storage options here -->
+                        </select>
+                        <button type="submit" class="primary-btn text-center">Edit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

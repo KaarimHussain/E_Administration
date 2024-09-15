@@ -1,0 +1,106 @@
+﻿@{
+    ViewData["Title"] = "Add Hardware | Portal - X - Administration";
+}
+
+@model E_Administration.Models.Hardware
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-12 my-3">
+            <a class="text-black text-decoration-none" asp-action="ViewHardware" asp-route-id="@ViewBag.InstituteId">Go Back</a>
+        </div>
+        <div class="col-12 d-flex justify-content-center align-items-center">
+            <div class="row">
+                <div class="col-md-12 d-flex flex-column gap-1">
+                    <h1 class="font-body fw-bold display-3">Add Hardware</h1>
+                    <p>Just Initialize Hardware parts you can use it later</p>
+
+                    @if (TempData["HardSuccess"] != null)
+                    {
+                        <div class="alert alert-success" role="alert">
+                            @TempData["HardSuccess"]
+                        </div>
+                    }
+
+                    @if (TempData["HardError"] != null)
+                    {
+                        <div class="alert alert-danger" role="alert">
+                            @TempData["HardError"]
+                        </div>
+                    }
+
+                    <!-- Validation Summary -->
+                    <div asp-validation-summary="All" class="text-danger"></div>
+
+                    <form method="post" asp-action="AddHardware" class="d-flex flex-column gap-3">
+                        <input type="hidden" name="Instituteid" value="@ViewBag.InstituteId" />
+
+                        <label class="text-black">Name for Machine</label>
+                        <input name="HardwareName" class="input-custom" placeholder="Machine Name..." />
+                        <span asp-validation-for="HardwareName" class="text-danger"></span>
+
+                        <label class="text-black">Processor</label>
+                        <input name="Processor" class="input-custom" placeholder="Processor Name..." />
+                        <span asp-validation-for="Processor" class="text-danger"></span>
+
+                        <label class="text-black">RAM</label>
+                        <select class="input-custom" name="Ram">
+                            <option value="1" selected>1 GB</option>
+                            <option value="2">2 GB</option>
+                            <option value="3">3 GB</option>
+                            <option value="4">4 GB</option>
+                            <option value="6">6 GB</option>
+                            <option value="8">8 GB</option>
+                            <option value="16">16 GB</option>
+                            <option value="34">34 GB</option>
+                            <option value="62">64 GB</option>
+                        </select>
+
+                        <label class="text-black">OS (Operating System)</label>
+                        <select class="input-custom" name="OsName">
+                            <option value="Windows 11" selected>Windows 11</option>
+                            <option value="Windows 10">Windows 10</option>
+                            <option value="Windows 8.1">Windows 8.1</option>
+                            <option value="Windows 7">Windows 7</option>
+                            <option value="macOS Sonoma">macOS Sonoma</option>
+                            <option value="macOS Ventura">macOS Ventura</option>
+                            <option value="macOS Monterey">macOS Monterey</option>
+                            <option value="macOS Big Sur">macOS Big Sur</option>
+                            <option value="Ubuntu">Ubuntu</option>
+                            <option value="Fedora">Fedora</option>
+                            <option value="Debian">Debian</option>
+                            <option value="Linux Mint">Linux Mint</option>
+                            <option value="Arch Linux">Arch Linux</option>
+                            <option value="CentOS">CentOS</option>
+                            <option value="openSUSE">openSUSE</option>
+                            <option value="Kali Linux">Kali Linux</option>
+                            <option value="Red Hat Enterprise Linux">Red Hat Enterprise Linux</option>
+                            <option value="Manjaro">Manjaro</option>
+                        </select>
+
+                        <label class="text-black">Storage Capacity</label>
+                        <select class="input-custom" name="StorageCapacity">
+                            <option value="60" selected>60 GB</option>
+                            <option value="80">80 GB</option>
+                            <option value="100">100 GB</option>
+                            <option value="120">120 GB</option>
+                            <option value="240">240 GB</option>
+                            <option value="360">360 GB</option>
+                            <option value="612">612 GB</option>
+                            <option value="1">1 TB</option>
+                            <option value="2">2 TB</option>
+                            <!-- More storage options here -->
+                        </select>
+
+                        <button type="submit" class="primary-btn text-center">Add</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

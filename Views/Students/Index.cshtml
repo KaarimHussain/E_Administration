@@ -1,3 +1,29 @@
 ﻿<div class="container py-5">
-    <h1 class="display-1 fw-bold font-body text-center">Welcome, @ViewBag.Username!</h1>
+    <div class="row mt-5">
+        <div class="col-12 mt-5">
+            <h1 class="display-3 text-center fw-bold font-body">
+                Hello! <span class="fw-light">@User.Identity.Name</span>
+            </h1>
+            <p class="text-black-50 text-center">
+                Visit Server Room for Study Material and Lectures Provided by Teachers
+            </p>
+            <div class="d-flex justify-content-center">
+                <a asp-action="Index" asp-controller="Server" class="primary-btn fw-bold">
+                    Server Room
+                </a>
+            </div>
+            <p class="fw-bold text-center text-black my-3"> 
+                OR
+            </p>
+            <p class="text-center text-black-50">
+                Write an Complaint regarding any Issues
+            </p>
+            <div class="d-flex justify-content-center">
+                <a asp-action="Create" asp-controller="Complaints" class="secondary-btn fw-bold">
+                    Write an Complaint
+                </a>
+            </div>
+        </div>
+    </div>
 </div>
+

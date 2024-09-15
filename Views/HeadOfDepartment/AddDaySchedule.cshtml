@@ -1,0 +1,48 @@
+﻿@model E_Administration.Models.ScheduleDay
+@{
+    ViewData["Title"] = "Add Days";
+}
+
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="row">
+        <div class="col-12 mb-3">
+            <a asp-action="DaySchedule" class="text-black text-decoration-none">Go Back</a>
+        </div>
+        <div class="col-12 d-flex justify-content-center flex-column gap-2">
+            <div>
+                <h1 class="fw-bold font-body display-4">Add Days</h1>
+                <p class="text-black-50">Fill the information about the Days in the given fields</p>
+            </div>
+
+            @if (TempData["daySuccess"] != null)
+            {
+                <div class="col-12 my-3">
+                    <div class="alert alert-success" role="alert">
+                        @TempData["daySuccess"]
+                    </div>
+                </div>
+            }
+
+            @if (TempData["dayError"] != null)
+            {
+                <div class="col-12 my-3">
+                    <div class="alert alert-danger" role="alert">
+                        @TempData["dayError"]
+                    </div>
+                </div>
+            }
+
+            <form asp-action="AddDaySchedule" method="post" class="col-12">
+                <div class="col-12 my-3 form-group d-flex flex-column gap-1">
+                    <label class="text-black">Day Name</label>
+                    <input type="text" asp-for="DayName" class="input-custom" />
+                    <span asp-validation-for="DayName" class="text-danger"></span>
+                </div>
+
+                <div class="my-3">
+                    <button type="submit" class="secondary-btn col-12">Add Day</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

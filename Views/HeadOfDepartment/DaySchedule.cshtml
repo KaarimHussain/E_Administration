@@ -1,0 +1,75 @@
+﻿@model IEnumerable<E_Administration.Models.ScheduleDay>
+
+<div class="container-fluid position-relative">
+    <div class="row">
+        <!-- Admin Offcanvas and Side navigation-bar are here -->
+        @await Html.PartialAsync("_HodSidebarPartial")
+        <div class="col-lg-9 col-md-12 col-12">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="p-4 d-flex justify-content-between align-items-center flex-lg-row flex-md-column flex-column gap-2">
+                            <div>
+                                <h3 class="font-body">Welcome, Head Of Department!🤔</h3>
+                                <p class="text-black-50 fw-normal">Here you can view the details about the HOD of the Education Department</p>
+                            </div>
+                            <div class="d-flex gap-2">
+                                <a asp-action="Logout" asp-controller="Login" class="primary-icon-btn">
+                                    <i class="bi bi-door-open-fill"></i>
+                                </a>
+                                <a asp-action="Logout" asp-controller="Login" class="primary-icon-btn">
+                                    <i class="bi bi-bell-fill"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <a asp-action="IndexSchedule" asp-route-id="" class="text-decoration-none text-black-50"><i class="bi bi-arrow-left"></i> Back to List </a>
+
+                    <div class="col-12 my-2 d-flex justify-content-center">
+                        <a class="primary-btn text-center" asp-action="AddDaySchedule" asp-route-instituteId=""> Add Day Schedule </a>
+                    </div>
+                    <!-- Details View -->
+                     <div class="container my-3">
+                    @if (Model == null || !Model.Any())
+                    {
+                    <p class="text-center fs-3 text-black-50 fw-bold">No Schedule Days are assign in this Institute</p>
+                    }
+                    else
+                    {
+                    <table class="table">
+                    <thead>
+                    <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Schedule Days</th>                    
+                    <th scope="col" class="text-center">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @* @foreach (var assignment in Model)
+                    {
+                    <tr>
+                    <th scope="row">@assignment.AssignId</th>
+                    <td>@assignment.AssignToNavigation.Username</td>
+                    <td>@assignment.AssignToNavigation.Email</td>
+                    <td>@assignment.Course.CourseName</td>
+                    <td>@assignment.AssignAt.ToString("dd/MM/yyyy")</td>
+                    <td class="d-flex justify-content-center gap-2">
+                    <a class="primary-icon-btn" asp-action="Edit" asp-route-id="@assignment.AssignId"><i class="bi bi-pencil-square"></i></a>
+                    <a class="primary-icon-btn" asp-action="Delete" asp-route-id="@assignment.AssignId"><i class="bi bi-trash-fill"></i></a>
+                    </td>
+                    </tr>
+                    } *@
+                    </tbody>
+
+                    </table>
+
+                    }
+                    </div>
+                    <!-- -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

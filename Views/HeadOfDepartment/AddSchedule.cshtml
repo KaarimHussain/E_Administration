@@ -1,0 +1,74 @@
+﻿@model E_Administration.Models.Schedule
+@{
+    ViewData["Title"] = "Add Schedule";
+}
+
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="row">
+        <div class="col-12 mb-3">
+            <a asp-action="ViewSchedule" class="text-black text-decoration-none">Go Back</a>
+        </div>
+        <div class="col-12 d-flex justify-content-center flex-column gap-2">
+            <div>
+                <h1 class="fw-bold font-body display-4">Add Schedule</h1>
+                <p class="text-black-50">Fill in the information to add a new schedule</p>
+            </div>
+
+            @if (TempData["scheduleSuccess"] != null)
+            {
+                <div class="col-12 my-3">
+                    <div class="alert alert-success" role="alert">
+                        @TempData["scheduleSuccess"]
+                    </div>
+                </div>
+            }
+
+            @if (TempData["scheduleError"] != null)
+            {
+                <div class="col-12 my-3">
+                    <div class="alert alert-danger" role="alert">
+                        @TempData["scheduleError"]
+                    </div>
+                </div>
+            }
+
+            <form asp-action="AddSchedule" method="post" class="col-12">
+                <div class="col-12 my-3 form-group d-flex flex-column gap-1">
+                    <label class="text-black">Day</label>
+                    <select asp-for="DayId" class="input-custom" asp-items="ViewBag.Days">
+                    </select>
+                    <span asp-validation-for="DayId" class="text-danger"></span>
+                </div>
+
+                <div class="col-12 my-3 form-group d-flex flex-column gap-1">
+                    <label class="text-black">Class Start Time</label>
+                    <input type="time" asp-for="ClassStartTime" class="input-custom" />
+                    <span asp-validation-for="ClassStartTime" class="text-danger"></span>
+                </div>
+
+                <div class="col-12 my-3 form-group d-flex flex-column gap-1">
+                    <label class="text-black">Class End Time</label>
+                    <input type="time" asp-for="ClassEndTime" class="input-custom" />
+                    <span asp-validation-for="ClassEndTime" class="text-danger"></span>
+                </div>
+
+                <div class="col-12 my-3 form-group d-flex flex-column gap-1">
+                    <label class="text-black">Lab</label>
+                    <select asp-for="LabId" class="input-custom" asp-items="ViewBag.Labs">
+                    </select>
+                    <span asp-validation-for="LabId" class="text-danger"></span>
+                </div>
+
+                <div class="my-3">
+                    <button type="submit" class="secondary-btn col-12">Add Schedule</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

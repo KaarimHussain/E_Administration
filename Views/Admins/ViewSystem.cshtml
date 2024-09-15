@@ -1,0 +1,68 @@
+﻿@model E_Administration.Models.Lab
+<div class="container-fluid position-relative">
+    <div class="row">
+        <!-- Admin Offcanvas and Side navigation-bar are here -->
+        @await Html.PartialAsync("_AdminSidebarPartial")
+        <div class="col-lg-9 col-md-12 col-12">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="p-4 d-flex justify-content-between align-items-center flex-lg-row flex-md-column flex-column gap-2">
+                            <div>
+                                <h3 class="font-body">Welcome, Admin! What's Cooking🤔</h3>
+                                <p class="text-black-50 fw-normal">Here you can view the details about the Institute</p>
+                            </div>
+                            <div class="d-flex gap-2">
+                                <a asp-action="Logout" asp-controller="Login" class="primary-icon-btn">
+                                    <i class="bi bi-door-open-fill"></i>
+                                </a>
+                                <a asp-action="Logout" asp-controller="Login" class="primary-icon-btn">
+                                    <i class="bi bi-bell-fill"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <a asp-action="DetailInstitutes" asp-route-id="@ViewBag.InstituteId" class="text-decoration-none text-black-50"><i class="bi bi-arrow-left"></i> Back to List</a>
+                    <!-- System View -->
+                    <div class="container my-3">
+                        <div class="row">
+                            <div class="col-12 mb-3" >
+                                <h1 class="fw-bold text-black font-body text-center">Systems</h1>
+                                <p class="text-black-50 text-center" >Choose one of the options to View their Details</p>
+                            </div>
+                            <div class="col-lg-6 col-md-12 col-12 mb-4" >
+                                <a asp-action="ViewHardware" asp-route-id="@ViewBag.InstituteId" class="text-decoration-none border border-3 rounded-4 p-2 d-flex flex-column gap-2 align-items-center justify-content-center">
+                                    <i class="bi bi-motherboard-fill display-1 primary-color"></i>
+                                    <h1 class="text-black fw-bold font-body" >Hardware</h1>
+                                    <small class="text-black-50" >
+                                        CPU, Processor, RAM, Storage, etc
+                                    </small>
+                                </a>
+                            </div>
+                            <div class="col-lg-6 col-md-12 col-12 mb-4">
+                                <a asp-action="ViewSoftware" asp-route-id="@ViewBag.InstituteId" class="text-decoration-none border border-3 rounded-4 p-2 d-flex flex-column gap-2 align-items-center justify-content-center">
+                                    <i class="bi bi-code-slash display-1 primary-color"></i>
+                                    <h1 class="text-black fw-bold font-body">Software</h1>
+                                    <small class="text-black-50">
+                                        Software Name, Purchased Date, Expire Date
+                                    </small>
+                                </a>
+                            </div>
+                            <div class="col-12 mb-4">
+                                <a asp-action="ViewPcs" asp-route-id="@ViewBag.InstituteId" class="text-decoration-none border border-3 rounded-4 p-2 d-flex flex-column gap-2 align-items-center justify-content-center">
+                                    <i class="bi bi-pc-display display-1 primary-color"></i>
+                                    <h1 class="text-black fw-bold font-body">PC</h1>
+                                    <small class="text-black-50">
+                                        Build Complete PC with the added Parts
+                                    </small>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

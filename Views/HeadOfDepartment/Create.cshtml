@@ -1,0 +1,78 @@
+﻿@model E_Administration.Models.Course
+
+<div class="container-fluid position-relative">
+    <div class="row">
+        <!-- HOD Offcanvas and Side navigation-bar are here -->
+        @await Html.PartialAsync("_HodSidebarPartial")
+        <div class="col-lg-9 col-md-12 col-12">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="p-4 d-flex justify-content-between align-items-center flex-lg-row flex-md-column flex-column gap-2">
+                            <div>
+                                <h3 class="font-body">Welcome, Education Head Of Department! 🤔</h3>
+                                <p class="text-black-50 fw-normal">Here you can view the details about the Faculties</p>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+
+                    <!-- Users View -->
+                    <div class="col-12">
+
+                        @{
+                            ViewData["Title"] = "Create";
+                        }
+
+                        <h4>Add Course</h4>
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-4">
+                                <form asp-action="Create">
+                                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                    <div class="form-group">
+                                        <label asp-for="CourseName" class="control-label"></label>
+                                        <input asp-for="CourseName" class="form-control" />
+                                        <span asp-validation-for="CourseName" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="CourseDuration" class="control-label"></label>
+                                        <input asp-for="CourseDuration" class="form-control" />
+                                        <span asp-validation-for="CourseDuration" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label asp-for="CreatedBy" class="control-label"></label>
+                                        <input asp-for="CreatedBy" class="form-control" />
+                                        <span asp-validation-for="CreatedBy" class="text-danger"></span>
+                                    </div>
+                                    <br />
+                                    <div class="form-group">
+                                        <input type="submit" value="Create" class="btn btn-primary" />
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <a asp-action="Index">Back to List</a>
+                        </div>
+
+                        @section Scripts {
+                            @{
+                                await Html.RenderPartialAsync("_ValidationScriptsPartial");
+                            }
+                        }
+
+                    </div>
+                    <!--  -->
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

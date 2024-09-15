@@ -1,0 +1,101 @@
+﻿@model IEnumerable<E_Administration.Models.Department>
+@{
+    ViewData["Title"] = "Departments | Portal - X - Administration";
+}
+
+<div class="container-fluid position-relative">
+    <div class="row">
+        <!-- Admin Offcanvas and Side navigation-bar are here -->
+        @await Html.PartialAsync("_AdminSidebarPartial")
+        <div class="col-lg-9 col-md-12 col-12">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="p-4 d-flex justify-content-between align-items-center flex-lg-row flex-md-column flex-column gap-2">
+                            <div>
+                                <h3 class="font-body">Welcome, Admin! What's Cooking🤔</h3>
+                                <p class="text-black-50 fw-normal">Here you can view the details about the Institute</p>
+                            </div>
+                            <div class="d-flex gap-2">
+                                <a asp-action="Logout" asp-controller="Login" class="primary-icon-btn">
+                                    <i class="bi bi-door-open-fill"></i>
+                                </a>
+                                <a asp-action="Logout" asp-controller="Login" class="primary-icon-btn">
+                                    <i class="bi bi-bell-fill"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <a asp-action="DetailInstitutes" asp-route-id="@ViewBag.InstituteId" class="text-decoration-none text-black-50"><i class="bi bi-arrow-left"></i> Back to List</a>
+                    <div class="col-12 mb-3 mt-4">
+                        <a asp-action="AddDepartments" asp-route-instituteId="@ViewBag.InstituteId" class="primary-btn">Add Departments</a>
+                    </div>
+                    <div class="col-12 my-4">
+                        @if (TempData["DepartmentSuccess"] != null)
+                        {
+                            <div class="alert alert-success" role="alert">
+                                @TempData["DepartmentSuccess"]
+                            </div>
+                        }
+                        @if (TempData["DepartmentError"] != null)
+                        {
+                            <div class="alert alert-danger" role="alert">
+                                @TempData["DepartmentError"]
+                            </div>
+                        }
+                    </div>
+                    <!-- Institute Details View -->
+                    <div class="container my-3">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Department Name</th>
+                                    <th scope="col">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.Count() > 0)
+                                {
+                                    @foreach (var department in Model)
+                                    {
+                                        <tr>
+                                            <th scope="row">@department.DepartmentId</th>
+                                            <td>@department.DepartmentName</td>
+                                            <td class="d-flex gap-1">
+                                                <!-- Delete Department Event -->
+                                                <form asp-action="DeleteDepartment" method="post">
+                                                    <input type="hidden" name="departmentId" value="@department.DepartmentId" />
+                                                    <input type="hidden" name="instituteId" value="@ViewBag.InstituteId" />
+                                                    <button type="submit" class="primary-icon-btn">
+                                                        <i class="bi bi-trash-fill"></i>
+                                                    </button>
+                                                </form>
+                                                <!-- ======================== -->
+                                                <!-- Edit Department Event -->
+                                                    <a class="primary-icon-btn" asp-action="EditDepartment" asp-route-d-id="@department.DepartmentId" asp-route-institute-id="@ViewBag.InstituteId" >
+                                                        <i class="bi bi-pencil-square"></i>
+                                                    </a>
+
+                                                <!-- ======================= -->
+
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr class="text-center">
+                                        <th colspan="2">No Department Found</th>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

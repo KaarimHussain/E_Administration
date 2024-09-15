@@ -32,6 +32,7 @@ body {
     padding: 0;
     font-family: var(--primary-font);
     box-sizing: border-box;
+    overflow-x:hidden;
 }
 
 .glass-bg {

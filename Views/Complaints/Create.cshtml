@@ -1,37 +1,39 @@
 ﻿@model E_Administration.Models.Complaint
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Send a Complaints Request | Portal - X Administration";
 }
+<div class="container py-5">
+    <div class="row mt-5">
+        <div class="col-12 my-3">
+            <a class="text-black-50 text-decoration-none" asp-action="Index" asp-controller="Students">
+              <i class="bi bi-arrow-back" ></i>  Go Back
+            </a>
+            <h1 class="text-center font-body fw-bold text-black display-3">Add Complaints</h1>
+        </div>
+        <div class="col-12 d-flex justify-content-center" >
+        <div class="col-md-6">
+            <form asp-action="Create" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group d-flex flex-column gap-1">
+                    <label class="control-label">Complaints Response</label>
+                    <textarea rows="6" asp-for="ComplaintsResponse" class="input-custom" placeholder="Enter your Complaints..." autofocus ></textarea>
+                    <span asp-validation-for="ComplaintsResponse" class="text-danger"></span>
+                </div>
+                <input type="hidden" asp-for="UserId" class="form-control" value="@ViewBag.UserId" asp-items="@ViewBag.UserId" />
+                <div class="form-group mt-4">
+                    <input type="submit" value="Send" class="primary-btn" />
+                </div>
+            </form>
+        </div>
 
-<h1>Create</h1>
-
-<h4>Complaint</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="ComplaintsResponse" class="control-label"></label>
-                <input asp-for="ComplaintsResponse" class="form-control" />
-                <span asp-validation-for="ComplaintsResponse" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UserId" class="control-label"></label>
-                <select asp-for="UserId" class ="form-control" asp-items="ViewBag.UserId"></select>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

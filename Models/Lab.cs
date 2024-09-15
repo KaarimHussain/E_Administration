@@ -7,9 +7,9 @@ public partial class Lab
 {
     public int LabId { get; set; }
 
-    public int FloorId { get; set; }
+    public int InstituteId { get; set; }
 
-    public virtual Floor Floor { get; set; } = null!;
+    public virtual Institute Institute { get; set; } = null!;
 
     public virtual ICollection<Pc> Pcs { get; set; } = new List<Pc>();
 

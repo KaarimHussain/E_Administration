@@ -1,0 +1,36 @@
+﻿@model E_Administration.Models.Software
+@{
+    ViewData["Title"] = "Edit Software | Portal - X - Administration";
+}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-12 my-3">
+            <a class="text-black text-decoration-none" asp-action="ViewSoftware" asp-route-id="@ViewBag.InstituteId">Go Back </a>
+        </div>
+        <div class="col-12 d-flex justify-content-center align-items-center">
+            <div class="row">
+                <div class="col-md-12 d-flex flex-column gap-1">
+                    <h1 class="font-body fw-bold display-3">Edit Software</h1>
+                    <p>Here you can Edit the Information about the Software</p>
+                    <form method="post" asp-action="EditSoftware" class="d-flex flex-column gap-3">
+                        <input type="hidden" name="InstituteId" value="@ViewBag.InstituteId" />
+                        <input type="hidden" name="SoftId" value="@Model.SoftId" />
+                        <label class="text-black" >
+                            Software Name
+                        </label>
+                        <input type="text" class="input-custom" name="SoftwareName" value="@Model.SoftwareName" required />
+                        <label>
+                            Purchased Date
+                        </label>
+                        <input type="date" class="input-custom" name="PurchasedDate" value="@Model.PurchasedDate" required />
+                        <label>
+                            Expire Date
+                        </label>
+                        <input type="date" class="input-custom" name="ExpireDate" value="@Model.ExpireDate" required />
+                        <button type="submit" class="primary-btn text-center">Save</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,40 @@
+﻿@model IEnumerable<E_Administration.Models.Lab>
+@{
+    ViewData["Title"] = "Add Floor";
+}
+
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="row">
+        <div class="col-12 mb-3">
+            <a asp-action="ViewLabs" asp-route-id="@ViewBag.InstituteId" class="text-black text-decoration-none">Go Back</a>
+        </div>
+        <div class="col-12 d-flex justify-content-center flex-column gap-2">
+            <div>
+                <h1 class="fw-bold font-body display-4">Add Labs</h1>
+                <p class="text-black-50">pressing the button will result in adding the labs automatically for this institute</p>
+            </div>
+            @if (TempData["LabsSuccess"] != null)
+            {
+                <div class="col-12 my-3">
+                    <div class="alert alert-success" role="alert">
+                        @TempData["LabsSuccess"]
+                    </div>
+                </div>
+            }
+            @if (TempData["LabsError"] != null)
+            {
+                <div class="col-12 my-3">
+                    <div class="alert alert-danger" role="alert">
+                        @TempData["LabsError"]
+                    </div>
+                </div>
+            }
+            <form asp-action="AddLabs" method="post" class="col-12">
+                <input type="hidden" name="InstituteId" value="@ViewBag.InstituteId" />
+                <div class="my-3">
+                    <button type="submit" class="secondary-btn col-12">Add Lab</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

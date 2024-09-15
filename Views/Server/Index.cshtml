@@ -1,0 +1,41 @@
+﻿@model IEnumerable<E_Administration.Models.File>
+
+@{
+    ViewData["Title"] = "Server Room | Provided Lectures | Portal - X - E-Administration";
+}
+<div class="container py-5">
+    <div class="row mt-5">
+        <div class="col-12 my-5">
+            <a asp-action="Index" asp-controller="Students" class="text-black-50 text-decoration-none">
+                <i class="bi bi-arrow-left"></i> Go Back
+            </a>
+            <h1 class="text-center fw-bold font-body display-3">Server</h1>
+            <p class="text-center text-black-50">
+                View through all the Lectures provided by Teachers
+            </p>
+        </div>
+        @foreach (var file in Model)
+        {
+            <div class="col-lg-4 col-md-6 col-sm-12 col-12 mb-4">
+                <div class="primary-bg p-4 rounded-5">
+                    <h2 class="fw-bold font-body text-white text-truncate ">@file.FileName</h2>
+                    <p class="text-white">
+                        <i class="bi bi-calendar"></i> @file.UploadDate
+                    </p>
+                    <p class="text-white">
+                        <i class="bi bi-person"></i> @file.UploadedBy
+                    </p>
+                    <!-- Add link to the download action -->
+                    <div class="d-flex gap-2 justify-content-around">
+                        <a href="@Url.Action("Download", "Server", new { id = file.FileId })" class="fw-bold secondary-btn">
+                            Download
+                        </a>
+                        <a asp-action="Details" asp-route-id="@file.FileId" class="fw-bold secondary-btn">
+                            Details
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

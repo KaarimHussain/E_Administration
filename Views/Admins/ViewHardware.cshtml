@@ -1,0 +1,115 @@
+﻿@model IEnumerable<E_Administration.Models.Hardware>
+<div class="container-fluid position-relative">
+    <div class="row">
+        <!-- Admin Offcanvas and Side navigation-bar are here -->
+        @await Html.PartialAsync("_AdminSidebarPartial")
+        <div class="col-lg-9 col-md-12 col-12">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="p-4 d-flex justify-content-between align-items-center flex-lg-row flex-md-column flex-column gap-2">
+                            <div>
+                                <h3 class="font-body">Welcome, Admin! What's Cooking🤔</h3>
+                                <p class="text-black-50 fw-normal">Here you can view the details about the Institute</p>
+                            </div>
+                            <div class="d-flex gap-2">
+                                <a asp-action="Logout" asp-controller="Login" class="primary-icon-btn">
+                                    <i class="bi bi-door-open-fill"></i>
+                                </a>
+                                <a asp-action="Logout" asp-controller="Login" class="primary-icon-btn">
+                                    <i class="bi bi-bell-fill"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <a asp-action="DetailInstitutes" asp-route-id="@ViewBag.InstituteId" class="text-decoration-none text-black-50"><i class="bi bi-arrow-left"></i> Back to List</a>
+                    <!-- System View -->
+                    <div class="container my-3">
+                        <div class="row">
+                            <div class="mb-2">
+                                <a class="primary-btn" asp-action="AddHardware" asp-route-id="@ViewBag.InstituteId">
+                                    Add Hardware
+                                </a>
+                            </div>
+                            <div class="col-12 mb-3">
+                                <h1 class="text-black font-body fw-bold text-center">Hardware</h1>
+                                <p class="text-center text-black-50">
+                                    <span class="fw-bold text-black">@Model.Count()</span> Hardware Components Found
+                                </p>
+                            </div>
+                            <div class="col-12 mb-2">
+                                @if (TempData["HardError"] != null)
+                                {
+                                    <div class="alert alert-danger" role="alert">
+                                        @TempData["HardError"]
+                                    </div>
+                                }
+                                @if (TempData["HardSuccess"] != null)
+                                {
+                                    <div class="alert alert-success" role="alert">
+                                        @TempData["HardSuccess"]
+                                    </div>
+                                }
+                            </div>
+                            @if (Model.Count() > 0)
+                            {
+                                @foreach (var hardware in Model)
+                                {
+                                    <div class="col-lg-4 col-md-6 col-sm-12 col-12">
+                                        <div class="primary-bg p-3 rounded-5 d-flex flex-column gap-2 justify-content-center">
+                                            <div class="text-center" >
+                                                <i class="bi bi-display display-1 text-white" ></i>
+                                            </div>
+                                            <p class="text-center text-white">@hardware.HardwareName</p>
+                                            <small class="text-white-50 d-flex gap-2">
+                                                <i class="bi bi-cpu-fill text-white"></i>
+                                                <span>@hardware.Processor</span>
+                                            </small>
+                                            <small class="text-white-50 d-flex gap-2">
+                                                <i class="bi bi-memory text-white"></i>
+                                                <span>@($"{hardware.Ram} GB")</span>
+                                            </small>
+                                            <small class="text-white-50 d-flex gap-2">
+                                                <i class="bi bi-windows text-white"></i>
+                                                <span>@hardware.OsName</span>
+                                            </small>
+                                            <small class="text-white-50 d-flex gap-2">
+                                                <i class="bi bi-floppy-fill text-white"></i>
+                                                <span>
+                                                    @if (hardware.StorageCapacity == 1 || hardware.StorageCapacity == 2)
+                                                    {
+                                                        @($"{hardware.StorageCapacity} TB")
+                                                    }
+                                                    else
+                                                    {
+                                                        @($"{hardware.StorageCapacity} GB")
+                                                    }
+                                                </span>
+                                            </small>
+                                            <div class="d-flex flex-column flex-md-row gap-1 justify-content-around align-items-center mt-3" >
+                                                <a asp-action="EditHardware" asp-route-hardid="@hardware.HardId" asp-route-id="@ViewBag.InstituteId" class="btn btn-light w-100 rounded-pill">
+                                                    Edit
+                                                </a>
+                                                <a asp-action="DeleteHardware" asp-route-hardid="@hardware.HardId" class="w-100 btn btn-dark rounded-pill">
+                                                    Delete
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <h4 class="fw-bold text-center text-black-50 font-body">
+                                    No Hardware Found
+                                </h4>
+                            }
+                        </div>
+                    </div>
+                    <!-- -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

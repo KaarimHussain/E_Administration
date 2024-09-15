@@ -21,7 +21,7 @@ namespace E_Administration.Controllers
         // GET: Pcs
         public async Task<IActionResult> Index()
         {
-            var eAdministrationContext = _context.Pcs.Include(p => p.Hard).Include(p => p.Lab).Include(p => p.Soft);
+            var eAdministrationContext = _context.Pcs.Include(p => p.Hard).Include(p => p.Lab);
             return View(await eAdministrationContext.ToListAsync());
         }
 
@@ -36,7 +36,6 @@ namespace E_Administration.Controllers
             var pc = await _context.Pcs
                 .Include(p => p.Hard)
                 .Include(p => p.Lab)
-                .Include(p => p.Soft)
                 .FirstOrDefaultAsync(m => m.PcId == id);
             if (pc == null)
             {
@@ -70,7 +69,7 @@ namespace E_Administration.Controllers
             }
             ViewData["HardId"] = new SelectList(_context.Hardwares, "HardId", "HardwareName", pc.HardId);
             ViewData["LabId"] = new SelectList(_context.Labs, "LabId", "LabName", pc.LabId);
-            ViewData["SoftId"] = new SelectList(_context.Softwares, "SoftId", "SoftwareName", pc.SoftId);
+            ViewData["SoftId"] = new SelectList(_context.Softwares, "SoftId", "SoftwareName");
             return View(pc);
         }
 
@@ -90,7 +89,7 @@ namespace E_Administration.Controllers
             }
             ViewData["HardId"] = new SelectList(_context.Hardwares, "HardId", "HardId", pc.HardId);
             ViewData["LabId"] = new SelectList(_context.Labs, "LabId", "LabId", pc.LabId);
-            ViewData["SoftId"] = new SelectList(_context.Softwares, "SoftId", "SoftId", pc.SoftId);
+            ViewData["SoftId"] = new SelectList(_context.Softwares, "SoftId", "SoftId");
             return View(pc);
         }
 
@@ -128,7 +127,7 @@ namespace E_Administration.Controllers
             }
             ViewData["HardId"] = new SelectList(_context.Hardwares, "HardId", "HardId", pc.HardId);
             ViewData["LabId"] = new SelectList(_context.Labs, "LabId", "LabId", pc.LabId);
-            ViewData["SoftId"] = new SelectList(_context.Softwares, "SoftId", "SoftId", pc.SoftId);
+            ViewData["SoftId"] = new SelectList(_context.Softwares, "SoftId", "SoftId");
             return View(pc);
         }
 
@@ -143,7 +142,6 @@ namespace E_Administration.Controllers
             var pc = await _context.Pcs
                 .Include(p => p.Hard)
                 .Include(p => p.Lab)
-                .Include(p => p.Soft)
                 .FirstOrDefaultAsync(m => m.PcId == id);
             if (pc == null)
             {

@@ -1,0 +1,62 @@
+﻿@{
+    ViewData["Title"] = "Add HOD (Head of Department)";
+}
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-12 my-3">
+            <a class="text-black text-decoration-none" asp-action="ViewHod" asp-route-id="@ViewBag.InstituteId">Go Back </a>
+        </div>
+        <div class="col-12 d-flex justify-content-center align-items-center">
+            <div class="row">
+                <div class="col-md-12 d-flex flex-column gap-1">
+                    <h1 class="font-body fw-bold display-3">Add HOD</h1>
+                    <p>Adding the Head of Department and assigning them a Department to work on!</p>
+                    @{
+                        if (TempData["HODSuccess"] != null)
+                        {
+                            <div class="alert alert-success" role="alert">
+                                @TempData["HODSuccess"]
+                            </div>
+                        }
+                        if (TempData["HODError"] != null)
+                        {
+                            <div class="alert alert-danger" role="alert">
+                                @TempData["HODError"]
+                            </div>
+                        }
+                    }
+                    <form method="post" asp-action="AddHOD" class="d-flex flex-column gap-3">
+                        <input type="hidden" name="instituteId" value="@ViewBag.InstituteId" />
+                        <div class="form-group">
+                            <label for="UnassignedHOD">Select Unassigned User</label>
+                            <br />
+                            <select required id="UnassignedHOD" name="UserId" class="input-custom w-100">
+                                <!-- Updated name -->
+                                <option value="" selected disabled>-- Select User --</option>
+                                @foreach (var item in ViewBag.UnassignedHOD)
+                                {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="Department">Select Department</label>
+                            <br />
+                            <select required id="Department" name="DepartmentId" class="input-custom w-100">
+                                <!-- Updated name -->
+                                <option value="" selected disabled>-- Select Department --</option>
+                                @foreach (var item in ViewBag.Department)
+                                {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+                            </select>
+                        </div>
+                        <button type="submit" class="primary-btn text-center">Add and Assign HOD</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

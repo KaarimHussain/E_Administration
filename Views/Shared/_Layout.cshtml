@@ -12,7 +12,7 @@
 </head>
 <body>
     <header>
-        @if (!User.IsInRole("Admin"))
+        @if (User.IsInRole("User") || !User.Identity.IsAuthenticated)
         {
             <!-- Render the navbar only if the user is not an admin -->
             <nav class="navbar navbar-expand-lg fixed-top">

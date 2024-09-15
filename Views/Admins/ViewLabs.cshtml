@@ -24,14 +24,16 @@
                         </div>
                     </div>
                     <hr />
-                    <a asp-action="Index" class="text-decoration-none text-black-50"><i class="bi bi-arrow-left"></i> Back to List</a>
+                    <a asp-action="DetailInstitutes" asp-route-id="@ViewBag.InstituteId" class="text-decoration-none text-black-50"><i class="bi bi-arrow-left"></i> Back to List</a>
                     <!-- Institute Details View -->
                     <div class="container my-3">
                         <div class="row">
+                            <div class="col-12 my-2" >
+                                <a asp-action="AddLabs" asp-route-id="@ViewBag.InstituteId" class="primary-btn">Add Labs</a>
+                            </div>
                             <div class="col-12 d-flex justify-content-center">
                                 <div class="col-md-6 col-sm-12 col-12 d-flex flex-column gap-2 align-items-center">
-                                    <label class="text-black-50">Select a Floor</label>
-                                    <select id="SelectLab" asp-for="LabId" asp-items="ViewBag.LabsId" class="input-custom col-12 w-100"></select>
+                                    <h1 class="text-center fw-bold font-body display-3">Labs</h1>
                                 </div>
                             </div>
                             <div class="col-12 my-4">
@@ -48,4 +50,4 @@
     </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="~/js/LabsAJAX.js"></script>
+<script src="~/js/LabsAJAX.js?v=1.0" ></script>

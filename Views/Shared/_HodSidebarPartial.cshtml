@@ -1,0 +1,63 @@
+﻿<div class="position-fixed bottom-0 start-0 ps-4 pb-4">
+    <button class="primary-icon-btn d-xl-none d-md-flex d-flex" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+        <i class="bi bi-list fs-5"></i>
+    </button>
+</div>
+<div class="col-lg-3 col-md-0 col-0 d-lg-block d-md-none d-none border-end">
+    <div class="p-4 text-center border-bottom">
+        <img src="~/Images/main-logo.png" class="nav-logo" />
+    </div>
+    <div class="row my-4">
+        <div class="col-12 mb-3">
+            <a asp-action="ViewTeacher" asp-controller="HeadOfDepartment" id="home-btn" class="secondary-btn d-flex align-items-center justify-content-start gap-3">
+                <i class="bi bi-person-fill fs-4"></i> Teachers
+            </a>
+        </div>
+        <div class="col-12 mb-3">
+            <a asp-action="index" id="user-btn" class="secondary-btn d-flex align-items-center justify-content-start gap-3">
+                <i class="bi bi-book-fill fs-4"></i> Course
+            </a>
+        </div>
+        <div class="col-12 mb-3">
+            <a asp-action="IndexSchedule" id="user-btn" class="secondary-btn d-flex align-items-center justify-content-start gap-3">
+                <i class="bi bi-calendar-fill fs-4"></i> Schedule
+            </a>
+        </div>
+    </div>
+</div>
+
+<!--Offcanvas-->
+
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas-header">
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="p-4 text-center border-bottom">
+                        <img src="~/Images/main-logo.png" class="nav-logo" />
+                    </div>
+                    <div class="row my-4">
+                        <div class="col-12 mb-3">
+                            <a asp-action="ViewTeacher" asp-controller="HeadOfDepartment" id="home-btn" class="secondary-btn d-flex align-items-center justify-content-start gap-3">
+                                <i class="bi bi-person-fill fs-4"></i> Teachers
+                            </a>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <a asp-action="index" id="user-btn" class="secondary-btn d-flex align-items-center justify-content-start gap-3">
+                                <i class="bi bi-book-fill fs-4"></i> Course
+                            </a>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <a asp-action="IndexSchedule" id="user-btn" class="secondary-btn d-flex align-items-center justify-content-start gap-3">
+                                <i class="bi bi-calendar-fill fs-4"></i> Schedule
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

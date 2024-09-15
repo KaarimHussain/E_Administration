@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using E_Administration.Models;
+using System.Security.Claims;
 
 namespace E_Administration.Controllers
 {
@@ -21,6 +22,10 @@ namespace E_Administration.Controllers
         // GET: Complaints
         public async Task<IActionResult> Index()
         {
+            if (!User.Identity.IsAuthenticated || !User.IsInRole("Admin"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
             var eAdministrationContext = _context.Complaints.Include(c => c.User);
             return View(await eAdministrationContext.ToListAsync());
         }
@@ -47,7 +52,12 @@ namespace E_Administration.Controllers
         // GET: Complaints/Create
         public IActionResult Create()
         {
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
+            if(!User.Identity.IsAuthenticated || !User.IsInRole("User"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            var user = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            ViewBag.UserId = int.Parse(user);
             return View();
         }
 
@@ -58,13 +68,23 @@ namespace E_Administration.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ComplaintsId,ComplaintsResponse,UserId")] Complaint complaint)
         {
-            if (ModelState.IsValid)
+            if (!User.IsInRole("User"))
             {
-                _context.Add(complaint);
+                return RedirectToAction("Index", "Home");
+            }
+            if (!ModelState.IsValid)
+            {
+                var newComplaint = new Complaint
+                {
+                    UserId = complaint.UserId,
+                    ComplaintsResponse = complaint.ComplaintsResponse,
+                };
+                _context.Add(newComplaint);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", complaint.UserId);
+            var user = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            ViewBag.UserId = int.Parse(user);
             return View(complaint);
         }
 

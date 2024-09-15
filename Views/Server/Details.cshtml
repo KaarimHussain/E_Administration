@@ -1,0 +1,97 @@
+﻿@model E_Administration.Models.File
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="container py-5">
+    <div class="row mt-5">
+        <div class="col-12 my-3">
+            <h1 class="fw-bold text-center font-body display-3 text-black">File Details</h1>
+        </div>
+        <div class="col-12 my-4 text-center d-flex flex-column gap-1 mb-2">
+            <span class="fw-bold text-black">
+                File Name
+            </span>
+            <small class="text-black-50 text-center fw-semibold">
+                @Html.DisplayFor(Model => Model.FileName)
+            </small>
+        </div>
+        <div class="col-12 my-4 text-center d-flex flex-column gap-1 mb-2">
+            <span class="fw-bold text-black">
+                Category
+            </span>
+            <small class="text-black-50 text-center fw-semibold">
+                @Html.DisplayFor(Model => Model.Category)
+            </small>
+        </div>
+        <div class="col-12 my-4 text-center d-flex flex-column gap-1 mb-2">
+            <span class="fw-bold text-black">
+                Uploaded At
+            </span>
+            <small class="text-black-50 text-center fw-semibold">
+                @Html.DisplayFor(Model => Model.UploadDate)
+            </small>
+        </div>
+        <div class="col-12 my-4 text-center d-flex flex-column gap-1 mb-2">
+            <span class="fw-bold text-black">
+                Uploaded By
+            </span>
+            <small class="text-black-50 text-center fw-semibold">
+                @Html.DisplayFor(Model => Model.UploadedBy)
+            </small>
+        </div>
+        <div class="d-flex flex-row gap-2 flex-ld-row flex-md-column align-items-center" >
+            <a asp-action="Download" asp-route-id="@Model.FileId" class="primary-btn">Download</a>
+            <a asp-action="Index" class="secondary-btn">Back to List</a>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+@* <div class="container mt-5">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h3 class="mb-0">File Details</h3>
+        </div>
+        <div class="card-body">
+            <div class="row mb-3">
+                <label class="col-sm-3 fw-bold">File Name:</label>
+                <div class="col-sm-9">
+                    <p>@Html.DisplayFor(model => model.FileName)</p>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-sm-3 fw-bold">Category:</label>
+                <div class="col-sm-9">
+                    <p>@Html.DisplayFor(model => model.Category)</p>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-sm-3 fw-bold">Upload Date:</label>
+                <div class="col-sm-9">
+                    <p>@Html.DisplayFor(model => model.UploadDate)</p>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-sm-3 fw-bold">Uploaded By:</label>
+                <div class="col-sm-9">
+                    <p>@Html.DisplayFor(model => model.UploadedBy)</p>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-end">
+            <a class="btn btn-success" asp-action="Download" asp-route-id="@Model.FileId">Download</a>
+            <a class="btn btn-warning me-2" asp-action="Edit" asp-route-id="@Model.FileId">Edit</a>
+            <a class="btn btn-secondary" asp-action="Index">Back to List</a>
+        </div>
+    </div>
+</div> *@

@@ -1,0 +1,33 @@
+﻿@model E_Administration.Models.Course;
+@{
+    ViewData["Title"] = "Edit Course";
+}
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-12 my-3" >
+            <a class="text-black text-decoration-none" asp-action="ViewCourses" asp-route-id="@ViewBag.InstituteId">Go Back </a>
+        </div>
+        <div class="col-12 d-flex justify-content-center align-items-center">
+            <div class="row">
+                <div class="col-md-12 d-flex flex-column gap-1">
+                    <h1 class="font-body fw-bold display-3">Edit Course Details</h1>
+                    <p>Edit the Course Details</p>
+                    <form method="post" asp-action="EditCourse" class="d-flex flex-column gap-3">
+                        <input type="hidden" name="id" value="@ViewBag.InstituteId" />
+                        <div class="d-flex flex-column gap-1">
+                            <label class="text-black" >Course Name</label>
+                            <input type="text" class="input-custom" name="CourseName" placeholder="Course Name" required value="@Model.CourseName" />
+                        </div>
+                        <div class="d-flex flex-column gap-1">
+                            <label class="text-black">Course Duration</label>
+                            <input type="date" name="CourseDuration" class="input-custom" required value="@Model.CourseDuration" />
+                        </div>
+                        <input type="hidden" name="CourseId" value="@Model.CourseId" />
+                        <button type="submit" class="primary-btn text-center">Edit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

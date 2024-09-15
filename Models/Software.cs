@@ -9,5 +9,13 @@ public partial class Software
 
     public string SoftwareName { get; set; } = null!;
 
-    public virtual ICollection<Pc> Pcs { get; set; } = new List<Pc>();
+    public int InstituteId { get; set; }
+
+    public DateOnly ExpireDate { get; set; }
+
+    public DateOnly PurchasedDate { get; set; }
+
+    public virtual ICollection<InsertedSoftware> InsertedSoftwares { get; set; } = new List<InsertedSoftware>();
+
+    public virtual Institute Institute { get; set; } = null!;
 }
