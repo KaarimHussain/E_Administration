@@ -1,4 +1,4 @@
-﻿@model E_Administration.Models.Lab
+﻿@model IEnumerable<E_Administration.Models.Lab>
 <div class="container-fluid position-relative">
     <div class="row">
         <!-- Admin Offcanvas and Side navigation-bar are here -->
@@ -28,7 +28,7 @@
                     <!-- Institute Details View -->
                     <div class="container my-3">
                         <div class="row">
-                            <div class="col-12 my-2" >
+                            <div class="col-12 my-2">
                                 <a asp-action="AddLabs" asp-route-id="@ViewBag.InstituteId" class="primary-btn">Add Labs</a>
                             </div>
                             <div class="col-12 d-flex justify-content-center">
@@ -36,11 +36,34 @@
                                     <h1 class="text-center fw-bold font-body display-3">Labs</h1>
                                 </div>
                             </div>
-                            <div class="col-12 my-4">
-                                <div class="row" id="lab-response-container">
-                                    
-                                </div>
-                            </div>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Lab</th>
+                                        <th scope="col" class="text-center">Details</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        int index = 1; // Initialize the index counter
+                                    }
+                                    @foreach (var labs in Model)
+                                    {
+                                        <tr>
+                                            <th>@index</th> <!-- Display the index -->
+                                            <td>@labs.LabId</td>
+                                            <td class="py-3 d-flex justify-content-center">
+                                                <a asp-action="ViewLabsDetails" asp-route-labId="@labs.LabId" asp-route-id="@ViewBag.InstituteId" class="primary-btn">  
+                                                    View PC's
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        index++; // Increment the counter
+                                    }
+                                </tbody>
+                            </table>
+
                         </div>
                     </div>
                     <!-- -->
@@ -49,5 +72,3 @@
         </div>
     </div>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="~/js/LabsAJAX.js?v=1.0" ></script>

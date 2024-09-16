@@ -28,34 +28,25 @@
                     <p class="text-center text-black-50 font-body">In this table will be able to view through all the Teachers in this institute</p>
                     <!-- Institute Details View -->
                     <div class="container my-3">
-                        @if(!Model.Any())
-                        {
-                            <table class="table">
-                                <thead>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Username</th>
+                                    <th scope="col">Email</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var teacher in Model)
+                                {
                                     <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Username</th>
-                                        <th scope="col">Email</th>
+                                        <th scope="row">@teacher.Id</th>
+                                        <td>@teacher.Username</td>
+                                        <td>@teacher.Email</td>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach(var teacher in Model)
-                                    {                                    
-                                        <tr>
-                                            <th scope="row">@teacher.Id</th>
-                                            <td>@teacher.Username</td>
-                                            <td>@teacher.Email</td>
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
-                        }
-                        else
-                        {
-                            <p class="text-center fw-bold font-body text-black-50" >
-                                No Teachers Found in the institute
-                            </p>
-                        }
+                                }
+                            </tbody>
+                        </table>
                     </div>
                     <!-- -->
                 </div>

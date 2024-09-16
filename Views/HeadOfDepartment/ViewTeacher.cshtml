@@ -36,6 +36,9 @@
                             @TempData["HODError"]
                         </div>
                     }
+                    <div class="col-12 mb-3">
+                        <a asp-action="Index" class="text-decoration-none text-black-50">Go Back</a>
+                    </div>
                     <div class="col-12 my-2 d-flex gap-2 justify-content-start">
                         <a class="primary-btn text-center" asp-action="AddTeacher">
                             Assign Course
@@ -48,7 +51,7 @@
                     <div class="container my-3">
                         @if (Model == null || !Model.Any())
                         {
-                            <p class="text-center fs-3 text-black-50 fw-bold">No UnAssign Users Found</p>
+                            <p class="text-center fs-3 text-black-50 fw-bold">No unassign Teachers Found</p>
                         }
                         else
                         {

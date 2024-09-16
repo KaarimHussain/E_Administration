@@ -1,0 +1,85 @@
+﻿@model E_Administration.Models.PCDetailsViewModel
+<div class="container-fluid position-relative">
+    <div class="row">
+        <!-- Admin Offcanvas and Side navigation-bar are here -->
+        @await Html.PartialAsync("_AdminSidebarPartial")
+        <div class="col-lg-9 col-md-12 col-12">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="p-4 d-flex justify-content-between align-items-center flex-lg-row flex-md-column flex-column gap-2">
+                            <div>
+                                <h3 class="font-body">Welcome, Admin! What's Cooking🤔</h3>
+                                <p class="text-black-50 fw-normal">Here you can view the details about the Institute</p>
+                            </div>
+                            <div class="d-flex gap-2">
+                                <a asp-action="Logout" asp-controller="Login" class="primary-icon-btn">
+                                    <i class="bi bi-door-open-fill"></i>
+                                </a>
+                                <a asp-action="Logout" asp-controller="Login" class="primary-icon-btn">
+                                    <i class="bi bi-bell-fill"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <a asp-action="ViewLabsDetails" asp-route-id="@ViewBag.InstituteId" asp-route-labId="@ViewBag.LabId" class="text-decoration-none text-black-50"><i class="bi bi-arrow-left"></i> Back to List</a>
+                    <!-- Institute Details View -->
+                    <div class="container my-3">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12 col-12 mb-4 d-flex align-items-center flex-column">
+                                <i class="moniter-icons primary-color bi bi-display"></i>
+                                <button class="primary-icon-btn" type="button" data-bs-toggle="collapse" data-bs-target="#SoftwareList" aria-expanded="false" aria-controls="SoftwareList">
+                                    <i class="bi bi-caret-down-fill"></i>
+                                </button>
+                                <div class="collapse col-md-7 col-sm-12 col-12 my-2" id="SoftwareList">
+                                    <div class="card border rounded-4 border-2 card-body">
+                                        <h3 class="text-center fw-bold font-body">Software Info</h3>
+                                        @if (Model.Software != null)
+                                        {
+                                            @foreach (var software in Model.Software)
+                                            {
+                                                <div class="p-3 border border-1 rounded-4 mb-3">
+                                                    <p><span class="fw-bold">Software Name</span> @software.Soft.SoftwareName </p>
+                                                    <p><span class="fw-bold">Purchased Date</span> @software.Soft.PurchasedDate</p>
+                                                    <p><span class="fw-bold">Expired Date</span> @software.Soft.ExpireDate</p>
+                                                </div>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <p class="text-center text-black">No Software Installed</p>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12 col-12 mb-4 d-flex align-items-center flex-column">
+                                <i class="moniter-icons primary-color bi bi-pc"></i>
+                                <button class="primary-icon-btn" type="button" data-bs-toggle="collapse" data-bs-target="#HardwareList" aria-expanded="false" aria-controls="HardwareList">
+                                    <i class="bi bi-caret-down-fill"></i>
+                                </button>
+                                <div class="collapse col-md-7 col-sm-12 col-12 my-2" id="HardwareList">
+                                    <div class="card border rounded-4 border-2 card-body">
+                                        <h3 class="fw-bold font-body text-black">
+                                            <i class="bi bi-cpu-fill"></i> @Model.Pc.Hard.Processor
+                                        </h3>
+                                        <h4 class="fw-bold font-body text-black">
+                                            <i class="bi bi-memory"></i> @Model.Pc.Hard.Ram GB
+                                        </h4>
+                                        <h4 class="fw-bold font-body text-black">
+                                            <i class="bi bi-hdd-fill"></i> @Model.Pc.Hard.StorageCapacity GB
+                                        </h4>
+                                        <h4 class="fw-bold font-body text-black">
+                                            <i class="bi bi-windows"></i> @Model.Pc.Hard.OsName
+                                        </h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

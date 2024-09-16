@@ -81,7 +81,7 @@ namespace E_Administration.Controllers
                         var principal = new ClaimsPrincipal(identity);
 
                         await HttpContext.SignInAsync(principal);
-                        return RedirectToAction("ViewTeacher", "HeadOfDepartment");
+                        return RedirectToAction("Index", "HeadOfDepartment");
                     }
                     else if(getRole.RoleName.ToLower() == "tech" || getRole.RoleName.ToLower() == "tech-staff" || getRole.RoleName.ToLower() == "techstaff")
                     {

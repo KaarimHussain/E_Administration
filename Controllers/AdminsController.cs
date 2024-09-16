@@ -174,14 +174,105 @@ namespace E_Administration.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            ViewData["Labs"] = new SelectList(_context.Labs.Where(q => q.InstituteId == id), "FloorId", "FloorName");
+            var labs = _context.Labs.Where(q => q.InstituteId == id).ToList();
             ViewBag.InstituteId = id;
+            return View(labs);
+        }
+
+        //GET
+        [HttpGet]
+        public IActionResult ViewLabsDetails(int id, int labId)
+        {
+            if (!User.Identity.IsAuthenticated || !User.IsInRole("Admin"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            var labsDetails = _context.Pcs.Where(q => q.InstituteId == id && q.LabId == labId).Include(q => q.Hard).ToList();
+            ViewBag.InstituteId = id;
+            ViewBag.LabId = labId;
+            return View(labsDetails);
+        }
+        //GET
+        [HttpGet]
+        public IActionResult InstallSoftware(int id)
+        {
+            var pcs = _context.Pcs.Where(q => q.InstituteId == id).ToList();
+            var software = _context.Softwares.Where(q => q.InstituteId == id).ToList();
+
+            ViewBag.Pc = new SelectList(pcs, "PcId", "PcName");
+            ViewBag.Software = new SelectList(software, "SoftId", "SoftwareName");
+            ViewBag.InstituteId = id;
+
             return View();
         }
+
+        [HttpPost]
+        public async Task<IActionResult> InstallSoftware(int id, InsertedSoftware installSoft)
+        {
+            if (!ModelState.IsValid)
+            {
+                var softAlreadyExistInPc = await _context.InsertedSoftwares
+                    .AnyAsync(q => q.PcId == installSoft.PcId && q.SoftId == installSoft.SoftId);
+
+                if (softAlreadyExistInPc)
+                {
+                    TempData["SoftError"] = "This software is already installed on the selected PC.";
+                }
+                else
+                {
+                    _context.InsertedSoftwares.Add(installSoft);
+                    await _context.SaveChangesAsync();
+                    TempData["SoftSuccess"] = "Software installed successfully!";
+                }
+            }
+            else
+            {
+                TempData["SoftError"] = "Unable to Install Software because of Invalid Provided Credentials!";
+            }
+
+            // Re-fetch lists for the dropdowns
+            var pcs = _context.Pcs.Where(q => q.InstituteId == id).ToList();
+            var software = _context.Softwares.Where(q => q.InstituteId == id).ToList();
+
+            ViewBag.Pc = new SelectList(pcs, "PcId", "PcName");
+            ViewBag.Software = new SelectList(software, "SoftId", "SoftwareName");
+            ViewBag.InstituteId = id;
+
+            return View();
+        }
+
+
+        //GET
+        [HttpGet]
+        public IActionResult ViewPCDetails(int id, int pcId, int labId)
+        {
+            if (!User.Identity.IsAuthenticated || !User.IsInRole("Admin"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var pcs = _context.Pcs.Where(q => q.PcId == pcId).Include(q => q.Hard).FirstOrDefault();
+            var software = _context.InsertedSoftwares.Where(q => q.PcId == pcId).Include(q => q.Soft).ToList();
+
+            var viewModel = new PCDetailsViewModel
+            {
+                Pc = pcs,
+                Software = software
+            };
+
+            ViewBag.InstituteId = id;
+            ViewBag.LabId = labId;
+            return View(viewModel);
+        }
+
 
         [HttpGet]
         public IActionResult AddLabs(int id)
         {
+            if (!User.Identity.IsAuthenticated || !User.IsInRole("Admin"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
             var labs = _context.Labs.Where(q => q.InstituteId == id).ToList();
             ViewBag.InstituteId = id;
             return View(labs);
@@ -275,7 +366,11 @@ namespace E_Administration.Controllers
                 await _context.SaveChangesAsync();
                 TempData["CourseSuccess"] = "Successfully Removed a Course";
             }
-            TempData["CourseError"] = "Failed to Remove an Course";
+            else
+            {
+
+                TempData["CourseError"] = "Failed to Remove an Course";
+            }
             return RedirectToAction("ViewCourses", new { id = id });
         }
 
@@ -892,7 +987,7 @@ namespace E_Administration.Controllers
         {
             // Get the teacher role for the specified institute
             var getTeacherRole = await _context.Roles
-                .Where(u => u.InstituteId == id && u.RoleName.ToLower() == "teacher" || u.RoleName.ToLower() == "professor" || u.RoleName.ToLower() == "faculty" || u.RoleName.ToLower() == "coordinator" || u.RoleName.ToLower() == "Tutor")
+                .Where(u => u.InstituteId == id && u.RoleName.ToLower() == "teacher" || u.RoleName.ToLower() == "professor" || u.RoleName.ToLower() == "faculty" || u.RoleName.ToLower() == "coordinator" || u.RoleName.ToLower() == "tutor")
                 .FirstOrDefaultAsync();
 
             if (getTeacherRole == null)

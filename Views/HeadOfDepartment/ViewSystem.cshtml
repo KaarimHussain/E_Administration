@@ -1,16 +1,15 @@
-﻿@model E_Administration.Models.Lab
-<div class="container-fluid position-relative">
+﻿<div class="container-fluid position-relative">
     <div class="row">
         <!-- Admin Offcanvas and Side navigation-bar are here -->
-        @await Html.PartialAsync("_AdminSidebarPartial")
+        @await Html.PartialAsync("_HodSidebarPartial")
         <div class="col-lg-9 col-md-12 col-12">
             <div class="container">
                 <div class="row">
                     <div class="col-12">
                         <div class="p-4 d-flex justify-content-between align-items-center flex-lg-row flex-md-column flex-column gap-2">
                             <div>
-                                <h3 class="font-body">Welcome, Admin! What's Cooking🤔</h3>
-                                <p class="text-black-50 fw-normal">Here you can view the details about the Institute</p>
+                                <h3 class="font-body">Welcome, @User.Identity.Name!🤔</h3>
+                                <p class="text-black-50 fw-normal">You are HOD (Head of Department)! Soo Let's see what you can do over here</p>
                             </div>
                             <div class="d-flex gap-2">
                                 <a asp-action="Logout" asp-controller="Login" class="primary-icon-btn">
@@ -27,15 +26,15 @@
                     <!-- System View -->
                     <div class="container my-3">
                         <div class="row">
-                            <div class="col-12 mb-3" >
+                            <div class="col-12 mb-3">
                                 <h1 class="fw-bold text-black font-body text-center">Systems</h1>
-                                <p class="text-black-50 text-center" >Choose one of the options to View their Details</p>
+                                <p class="text-black-50 text-center">Choose one of the options to View their Details</p>
                             </div>
-                            <div class="col-lg-6 col-md-12 col-12 mb-4" >
+                            <div class="col-lg-6 col-md-12 col-12 mb-4">
                                 <a asp-action="ViewHardware" asp-route-id="@ViewBag.InstituteId" class="text-decoration-none border border-3 rounded-4 p-2 d-flex flex-column gap-2 align-items-center justify-content-center">
                                     <i class="bi bi-motherboard-fill display-1 primary-color"></i>
-                                    <h1 class="text-black fw-bold font-body" >Hardware</h1>
-                                    <small class="text-black-50" >
+                                    <h1 class="text-black fw-bold font-body">Hardware</h1>
+                                    <small class="text-black-50">
                                         CPU, Processor, RAM, Storage, etc
                                     </small>
                                 </a>
@@ -49,7 +48,7 @@
                                     </small>
                                 </a>
                             </div>
-                            <div class="col-lg-6 col-md-12 col-12 mb-4">
+                            <div class="col-lg-6 col-md-12 col-12 mb-4">    
                                 <a asp-action="ViewPcs" asp-route-id="@ViewBag.InstituteId" class="text-decoration-none border border-3 rounded-4 p-2 d-flex flex-column gap-2 align-items-center justify-content-center">
                                     <i class="bi bi-pc-display display-1 primary-color"></i>
                                     <h1 class="text-black fw-bold font-body">PC</h1>
@@ -59,7 +58,7 @@
                                 </a>
                             </div>
                             <div class="col-lg-6 col-md-12 col-12 mb-4">
-                                <a asp-action="InstallSoftware" asp-route-id="@ViewBag.InstituteId" class="text-decoration-none border border-3 rounded-4 p-2 d-flex flex-column gap-2 align-items-center justify-content-center">
+                                <a asp-action="ViewInstallSoftware" asp-route-id="@ViewBag.InstituteId" class="text-decoration-none border border-3 rounded-4 p-2 d-flex flex-column gap-2 align-items-center justify-content-center">
                                     <i class="bi bi-braces-asterisk display-1 primary-color"></i>
                                     <h1 class="text-black fw-bold font-body">Install Softwares</h1>
                                     <small class="text-black-50">

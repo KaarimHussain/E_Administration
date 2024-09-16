@@ -1,0 +1,46 @@
+﻿@model E_Administration.Models.InsertedSoftware
+@{
+    ViewData["Title"] = "Add HOD (Head of Department)";
+}
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-12 my-3">
+            <a class="text-black text-decoration-none" asp-action="ViewSystem" asp-route-id="@ViewBag.InstituteId">Go Back </a>
+        </div>
+        <div class="col-12 d-flex justify-content-center align-items-center">
+            <div class="row">
+                <div class="col-md-12 d-flex flex-column gap-1">
+                    <h1 class="font-body fw-bold display-3">Install Softwares</h1>
+                    <p class="text-center" >Install the Software from here <br> <span class="text-black-50">Note! (Single PC can have multiple Softwares)</span> </p>
+                    @{
+                        if (TempData["SoftSuccess"] != null)
+                        {
+                            <div class="alert alert-success" role="alert">
+                                @TempData["SoftSuccess"]
+                            </div>
+                        }
+                        if (TempData["SoftError"] != null)
+                        {
+                            <div class="alert alert-danger" role="alert">
+                                @TempData["SoftError"]
+                            </div>
+                        }
+                    }
+                    <form method="post" asp-action="InstallSoftware" class="d-flex flex-column gap-3">
+                        <input type="hidden" name="InstituteId" value="@ViewBag.InstituteId" />
+
+                        <label>Select a PC</label>
+                        <select asp-for="PcId" asp-items="ViewBag.Pc" class="input-custom"></select>
+
+                        <label>Select a Software</label>
+                        <select asp-for="SoftId" asp-items="ViewBag.Software" class="input-custom"></select>
+
+                        <button type="submit" class="primary-btn text-center">Install Now</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

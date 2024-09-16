@@ -1,49 +1,33 @@
-﻿@model E_Administration.Models.Course
-
+﻿@model E_Administration.Models.Course;
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit Course";
 }
 
-<h1>Edit</h1>
-
-<h4>Course</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="CourseId" />
-            <div class="form-group">
-                <label asp-for="CourseName" class="control-label"></label>
-                <input asp-for="CourseName" class="form-control" />
-                <span asp-validation-for="CourseName" class="text-danger"></span>
+<div class="container py-5">
+    <div class="row">
+        <div class="col-12 my-3">
+            <a class="text-black text-decoration-none" asp-action="ViewCourses" asp-route-id="@ViewBag.InstituteId">Go Back </a>
+        </div>
+        <div class="col-12 d-flex justify-content-center align-items-center">
+            <div class="row">
+                <div class="col-md-12 d-flex flex-column gap-1">
+                    <h1 class="font-body fw-bold display-3">Edit Course Details</h1>
+                    <p>Edit the Course Details</p>
+                    <form method="post" asp-action="EditCourse" class="d-flex flex-column gap-3">
+                        <input type="hidden" name="id" value="@ViewBag.InstituteId" />
+                        <div class="d-flex flex-column gap-1">
+                            <label class="text-black">Course Name</label>
+                            <input type="text" class="input-custom" name="CourseName" placeholder="Course Name" required value="@Model.CourseName" />
+                        </div>
+                        <div class="d-flex flex-column gap-1">
+                            <label class="text-black">Course Duration</label>
+                            <input type="date" name="CourseDuration" class="input-custom" required asp-for="CourseDuration" />
+                        </div>
+                        <input type="hidden" name="CourseId" value="@Model.CourseId" />
+                        <button type="submit" class="primary-btn text-center">Edit</button>
+                    </form>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="CourseDuration" class="control-label"></label>
-                <input asp-for="CourseDuration" class="form-control" />
-                <span asp-validation-for="CourseDuration" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CreatedBy" class="control-label"></label>
-                <input asp-for="CreatedBy" class="form-control" />
-                <span asp-validation-for="CreatedBy" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CreatedAt" class="control-label"></label>
-                <input asp-for="CreatedAt" class="form-control" />
-                <span asp-validation-for="CreatedAt" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

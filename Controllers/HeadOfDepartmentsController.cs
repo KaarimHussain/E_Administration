@@ -345,5 +345,273 @@ namespace E_Administration.Controllers
             return View(day);
         }
 
+
+        // ============================================================
+        // MY CUSTOM CONTROLLER FOR VIEW
+        // ============================================================
+
+        // Not Gonna Use Async cause it's for Babies
+        // Only use it when you gonna need it because the work above is done by a random women and work from here is done by me Kaarim Hussain
+        
+        // ===================================   COURSES   =====================================
+
+        // Navigate to the Main Panel where HOD can view the Courses
+        [HttpGet]
+        public IActionResult ViewCourses()
+        {
+            if (!User.Identity.IsAuthenticated && !User.IsInRole("HOD"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            // Fetching the ID of the Institute
+            var instituteId = int.Parse(User.FindFirst("InstituteId")?.Value);
+
+            var courses = _context.Courses.Where(i => i.InstituteId == instituteId).ToList();
+            ViewBag.InstituteId = instituteId;
+            return View(courses);
+        }
+
+
+        // Navigate to AddCourses Panel to Add Courses
+        [HttpGet]
+        public IActionResult AddCourses()
+        {
+            if (!User.Identity.IsAuthenticated && !User.IsInRole("HOD"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            // Fetching the ID of the Institute
+            var instituteId = int.Parse(User.FindFirst("InstituteId")?.Value);
+
+            ViewBag.InstituteId = instituteId;
+            return View();
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> AddCourses([Bind("CourseName", "CourseDuration", "CreatedBy", "CreatedAt","InstituteId")]Course course)
+        {
+            if (!User.Identity.IsAuthenticated && !User.IsInRole("HOD"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            // Fetching the ID of the Institute
+            var instituteId = int.Parse(User.FindFirst("InstituteId")?.Value);
+            if (ModelState.IsValid)
+            {
+                course.CreatedBy = "HOD";
+                course.CreatedAt = DateTime.Now;
+                course.InstituteId = instituteId;
+
+                await _context.AddAsync(course);
+                await _context.SaveChangesAsync();
+                TempData["CourseSuccess"] = "Successfully added a Course";
+            }
+            else
+            {
+                TempData["CourseError"] = "Failed to Create Course! Provided Credentials are not Valid.";
+            }
+            ViewBag.InstituteId = instituteId;
+            return View(course);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteCourse(int CourseId)
+        {
+            var course = await _context.Courses.FirstOrDefaultAsync(c => c.CourseId == CourseId);
+            if (course != null)
+            {
+                _context.Remove(course);
+                await _context.SaveChangesAsync();
+                TempData["CourseSuccess"] = "Successfully Removed a Course";
+            }
+            else
+            {
+                TempData["CourseError"] = "Failed to Remove an Course";
+            }
+            return RedirectToAction("ViewCourses");
+        }
+
+        [HttpGet]
+        public IActionResult EditCourse(int CourseId)
+        {
+            var instituteId = int.Parse(User.FindFirst("InstituteId")?.Value);
+            if (CourseId <= 0)
+            {
+                return RedirectToAction("ViewCourses");
+            }
+            var course = _context.Courses.FirstOrDefault(c => c.CourseId == CourseId);
+            if (course == null)
+            {
+                // Handle the case where the course is not found
+                return NotFound("Course not found");
+            }
+            ViewBag.InstituteId = instituteId;
+            return View(course);
+        }
+
+
+        // POST: Save the edited course
+        [HttpPost]
+        public async Task<IActionResult> EditCourse(Course cour)
+        {
+            var course = await _context.Courses.FirstOrDefaultAsync(c => c.CourseId == cour.CourseId);
+            if (course != null)
+            {
+                course.CourseName = cour.CourseName; // update the properties
+                course.CourseDuration = cour.CourseDuration;
+                cour.CreatedAt = DateTime.Now;
+                cour.CreatedBy = "HOD";
+                _context.Update(course);
+                await _context.SaveChangesAsync();
+                TempData["CourseSuccess"] = "Successfully Edited a Course";
+            }
+            return RedirectToAction("ViewCourses");
+        }
+
+        // ===================================   COURSES END   =====================================
+        // ===================================   DEPARTMENT   =====================================
+
+        [HttpGet]
+        public IActionResult ViewDepartment()
+        {
+            if (!User.IsInRole("HOD"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            var instituteId = int.Parse(User.FindFirst("InstituteId")?.Value);
+
+            var departments = _context.Departments
+            .Where(d => d.InstituteId == instituteId)
+            .ToList();
+
+            ViewBag.InstituteId = instituteId;
+            return View(departments);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteDepartment(int departmentId)
+        {
+            if (!User.IsInRole("HOD"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            var instituteId = int.Parse(User.FindFirst("InstituteId")?.Value);
+
+            var department = await _context.Departments.FirstOrDefaultAsync(d => d.DepartmentId == departmentId);
+            if (department != null)
+            {
+                _context.Departments.Remove(department);
+                await _context.SaveChangesAsync();
+                TempData["DepartmentSuccess"] = "Department was added Successfully";
+                return RedirectToAction("ViewDepartment");
+            }
+            else
+            {
+                TempData["DepartmentError"] = "Department not found.";
+            }
+
+            return RedirectToAction("ViewDepartment");
+        }
+
+        //GET
+        [HttpGet]
+        public IActionResult AddDepartment()
+        {
+            if (!User.IsInRole("HOD"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            var instituteId = int.Parse(User.FindFirst("InstituteId")?.Value);
+            var institute = _context.Institutes.FirstOrDefault(i => i.InstituteId == instituteId);
+            if (institute == null)
+            {
+                return NotFound(); // or handle this case as appropriate
+            }
+
+            ViewBag.InstituteId = instituteId; // Pass InstituteId to the view
+            return View();
+        }
+
+        //POST
+        [HttpPost]
+        public async Task<IActionResult> AddDepartments(Department department)
+        {
+            if (!User.IsInRole("HOD"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                // Debugging: Check if InstituteId is being passed correctly
+                var institute = await _context.Institutes.FindAsync(department.InstituteId);
+                if (institute == null)
+                {
+                    TempData["DepartmentError"] = "Invalid Institute ID!";
+                    return RedirectToAction("AddDepartment");
+                }
+
+                _context.Add(department);
+                await _context.SaveChangesAsync();
+                TempData["DepartmentSuccess"] = "Successfully added a department!";
+                return RedirectToAction("ViewDepartment");
+            }
+
+            TempData["DepartmentError"] = "Invalid department details!" + department.InstituteId;
+            return RedirectToAction("ViewDepartment");
+        }
+
+        // ===================================   DEPARTMENT END   =====================================
+        // ===================================   SOFTWARES   =====================================
+
+        [HttpGet]
+        public IActionResult ViewSystem()
+        {
+            if (!User.Identity.IsAuthenticated || !User.IsInRole("HOD"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            var instituteId = int.Parse(User.FindFirst("InstituteId")?.Value);
+            ViewBag.InstituteId = instituteId;
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult ViewSoftware()
+        {
+            if (!User.Identity.IsAuthenticated || !User.IsInRole("HOD"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            var instituteId = int.Parse(User.FindFirst("InstituteId")?.Value);
+            ViewBag.InstituteId = instituteId;
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult ViewPc()
+        {
+            if (!User.Identity.IsAuthenticated || !User.IsInRole("HOD"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            var instituteId = int.Parse(User.FindFirst("InstituteId")?.Value);
+            ViewBag.InstituteId = instituteId;
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult ViewInstalledSoftware()
+        {
+            if (!User.Identity.IsAuthenticated || !User.IsInRole("HOD"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            var instituteId = int.Parse(User.FindFirst("InstituteId")?.Value);
+            ViewBag.InstituteId = instituteId;
+            return View();
+        }
+
+        // ===================================   SOFTWARES END   =====================================
     }
 }

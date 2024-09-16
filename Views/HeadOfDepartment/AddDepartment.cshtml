@@ -1,0 +1,39 @@
+﻿@model E_Administration.Models.Department;
+@{
+    ViewData["Title"] = "Add Department";
+}
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-12 my-3">
+            <a class="text-black text-decoration-none" asp-action="ViewDepartment">Go Back </a>
+        </div>
+        <div class="col-12 d-flex justify-content-center align-items-center">
+            <div class="row">
+                <div class="col-md-12 d-flex flex-column gap-1">
+                    <h1 class="font-body fw-bold display-3">Add Department</h1>
+                    <p>Adding the Course for Student</p>
+                    @{
+                        if (TempData["DepartmentSuccess"] != null)
+                        {
+                            <div class="alert alert-success" role="alert">
+                                @TempData["DepartmentSuccess"]
+                            </div>
+                        }
+                        if (TempData["DepartmentError"] != null)
+                        {
+                            <div class="alert alert-danger" role="alert">
+                                @TempData["DepartmentError"]
+                            </div>
+                        }
+                    }
+                    <form method="post" asp-action="AddDepartments" class="d-flex flex-column gap-3">
+                        <input type="text" class="input-custom" placeholder="Enter Department Name..." name="DepartmentName" />
+                        <input type="hidden" name="InstituteId" value="@ViewBag.InstituteId" />
+                        <button type="submit" class="primary-btn text-center">Add</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
